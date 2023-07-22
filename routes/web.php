@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ConnectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    
-    
+Route::get('/', function () {  
     return view('dashboard');
-   
 });
+
+Route::resource('connection', ConnectionController::class);
+Route::get('parked_connection', [ConnectionController::class, 'indexParkedConnection'])->name('parked_connection.index');
+Route::get('dashboard', [ConnectionController::class, 'indexDashboard'])->name('dashboard.index');
 
 Route::get('/shehwar', function () {
     

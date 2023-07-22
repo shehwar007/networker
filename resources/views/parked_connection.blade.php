@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Connection')
+@section('title', 'Parked Connection')
 @push('mycss')
 
 <!--here is you css-->
@@ -9,30 +9,20 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            @if (session('alert'))
-            <div class="alert icon-custom-alert alert-outline-{{ session('alert') }}" role="alert">
-                <i class="mdi mdi-check-all alert-icon"></i>
-                <div class="alert-text">
-                {!! session('alert-message') !!}
-                </div>
-                <div class="alert-close">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"><i class="mdi mdi-close text-success font-16"></i></span>
-                    </button>
-                </div>
-            </div>
-            @endif
-
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Connection</h4>
-
+                    <h4 class="page-title">Parked Connection</h4>
+                   
                 </div><!--end col-->
                 <div class="col-auto align-self-center">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#connection">
-                        New Connection
-                    </button>
-
+                    <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                        <span class="day-name" id="Day_Name">Today:</span>&nbsp;
+                        <span class="" id="Select_date">Jan 11</span>
+                        <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i>
+                    </a>
+                    <a href="#" class="btn btn-sm btn-outline-primary">
+                        <i data-feather="download" class="align-self-center icon-xs"></i>
+                    </a>
                 </div><!--end col-->
             </div><!--end row-->
         </div><!--end page-title-box-->
@@ -42,7 +32,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Active Connection</h4>
+                <h4 class="card-title">Parked Connection</h4>
                 <p class="text-muted mb-0">
                 </p>
             </div><!--end card-header-->
@@ -522,83 +512,9 @@
             </div>
         </div>
     </div> <!-- end col -->
-</div>
-<!--Start Modal-->
-
-<div class="modal fade bd-example-modal-xl" id="connection" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <form action="{{route('connection.store')}}" method="post">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">Connection</h6>
-                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="la la-times"></i></span>
-                    </button>
-                </div><!--end modal-header-->
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="validationServer01"><strong>Connection Name</strong></label>
-                            <input name="connection_name" class="form-control" type="text" placeholder="Enter connection name">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer01"><strong>Type</strong></label>
-                            <select class="form-control" id="connection_type_id" name="connection_type_id">
-                                <option value="">----Select----</option>
-                                @foreach($connection_types as $data)
-                                <option value="{{$data->id}}">{{$data->connection_type}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer01"><strong>Date of Last Contact</strong></label>
-                            <input type="date" class="form-control" name="date_of_last_contact" id="date_of_last_contact" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>Individual/Organisation</strong></label>
-                            <select class="form-control" id="is_individual" name="is_individual">
-                                <option value="1">Individual</option>
-                                <option value="0">Organisation</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>Next Activity</strong></label>
-                            <select class="form-control" id="activity_id" name="activity_id" required>
-                                <option value="">----Select----</option>
-                                @foreach($activities as $data)
-                                <option value="{{$data->id}}">{{$data->activity}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>How to Help the Connection</strong></label>
-                            <select class="form-control" id="connection_help_id" name="connection_help_id">
-                                <option value="">----Select----</option>
-                                @foreach($connection_helps as $data)
-                                <option value="{{$data->id}}">{{$data->connection_help}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Notes</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end modal-body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
-                </div><!--end modal-footer-->
-            </div><!--end modal-content-->
-        </form>
-    </div><!--end modal-dialog-->
-</div><!--end modal-->
-<!--End Modal-->
+</div> <!-- end row -->
 @endsection
 @push('myscript')
-<!--here is you JS-->
 
+<!--here is you JS-->
 @endpush

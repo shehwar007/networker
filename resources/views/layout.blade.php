@@ -50,21 +50,21 @@
                 <ul class="metismenu left-sidenav-menu">
                     <li class="menu-label mt-0">Main</li>
                     <li>
-                        <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
+                        <a href="{{route('dashboard.index')}}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                        
                     </li>
 
                     <hr class="hr-dashed hr-menu">
 
                     <li>
-                        <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Active Connections</span><span class="menu-arrow"></span></a>
+                        <a href="{{route('connection.index')}}"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Active Connections</span><span class="menu-arrow"></span></a>
                      
                     </li> 
 
                     <hr class="hr-dashed hr-menu">
     
                     <li>
-                        <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Parked Connections</span><span class="menu-arrow"></span></a>
+                        <a href="{{route('parked_connection.index')}}"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Parked Connections</span><span class="menu-arrow"></span></a>
                      
                     </li> 
 
