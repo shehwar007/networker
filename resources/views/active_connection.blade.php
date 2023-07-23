@@ -56,16 +56,17 @@
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
+                            <th>Action</th>
                             <th>#</th>
                             <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
-                            <th >Category</th>
+                            <th>Category</th>
                             <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
 
                             <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br><small>Last Contact<small></th>
-                            <th  id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
-                            <th  id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
+                            <th id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
+                            <th id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
                             <!-- <th>Notes</th> -->
-                            <th>Action</th>
+
                         </tr>
                     </thead>
 
@@ -73,32 +74,7 @@
                     <tbody>
                         @foreach($connection as $data)
                         <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$data->connection_name}}</td>
-                            <td>{{$data->is_individual}}</td>
-                            <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                              <td>
-                                @php
-                               
-
-                                $diffInMonths = Carbon\Carbon::create($data->date_of_last_contact)->diffInMonths(Carbon\Carbon::now());
-                                   
-
-                                @endphp
-
-                                @if($diffInMonths>6)
-                                <button type="button" class="btn" style="background-color: red;"></button>
-                                {{$diffInMonths}}
-                                @else
-                                <button type="button" class="btn" style="background-color: #03d87f;"></button>
-                                {{$diffInMonths}}
-                                @endif
-                              </td>
-                            <!-- <td>{{$data->date_of_last_contact }}</td> -->
-                            <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
-                            <td>{{$data->conhelp->connection_help }}</td>
-                            <!-- <td> {{$data->notes }}</td> -->
-                            <td class="text-right">
+                        <td class="text-right">
                                 <div class="dropdown d-inline-block">
                                     <a class="dropdown-toggle arrow-none" id="dLabel11" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                         <i class="las la-ellipsis-v font-20 text-muted"></i>
@@ -117,6 +93,32 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$data->connection_name}}</td>
+                            <td>{{$data->is_individual}}</td>
+                            <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
+                            <td>
+                                @php
+
+
+                                $diffInMonths = Carbon\Carbon::create($data->date_of_last_contact)->diffInMonths(Carbon\Carbon::now());
+
+
+                                @endphp
+
+                                @if($diffInMonths>6)
+                                <button type="button" class="btn" style="background-color: red;"></button>
+                                {{$diffInMonths}}
+                                @else
+                                <button type="button" class="btn" style="background-color: #03d87f;"></button>
+                                {{$diffInMonths}}
+                                @endif
+                            </td>
+                            <!-- <td>{{$data->date_of_last_contact }}</td> -->
+                            <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
+                            <td>{{$data->conhelp->connection_help }}</td>
+                            <!-- <td> {{$data->notes }}</td> -->
+                           
                         </tr>
                         @endforeach
 
@@ -250,7 +252,7 @@
             $("#put").remove();
             $('#connectionForm')[0].reset();
             $("#connectionForm").attr('action', "{{route('connection.store')}}");
-              $('#htmlAppend').html("");
+            $('#htmlAppend').html("");
             $("htmlAppendy").hide();
             hideshow(1);
 
@@ -278,14 +280,14 @@
                 hideshow(1);
                 $('#htmlAppend').html("");
                 $("htmlAppendy").hide();
-               
+
 
             } else {
                 $("#is_individual").val(0);
                 hideshow(0);
                 $("#htmlAppend").html(d.html);
                 $("htmlAppendy").show();
-               
+
 
             }
             $("#activity_id").val(result.activity_id);

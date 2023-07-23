@@ -33,7 +33,7 @@
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
-
+                  
 
 
                 </div><!--end col-->
@@ -54,7 +54,6 @@
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>Action</th>
                             <th>#</th>
                             <th>Name</th>
                             <th>Category</th>
@@ -64,7 +63,7 @@
                             <th>Next Activity</th>
                             <th>How to Help <br> the connection</th>
                             <!-- <th>Notes</th> -->
-
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -72,6 +71,14 @@
                     <tbody>
                         @foreach($connection as $data)
                         <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$data->connection_name}}</td>
+                            <td>{{$data->is_individual}}</td>
+                            <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
+                            <td>{{$data->date_of_last_contact}}</td>
+                            <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
+                            <td>{{$data->conhelp->connection_help }}</td>
+                            <!-- <td> {{$data->notes }}</td> -->
                             <td class="text-right">
                                 <div class="dropdown d-inline-block">
                                     <a class="dropdown-toggle arrow-none" id="dLabel11" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -79,8 +86,8 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
                                         <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
-
-                                        <form action="{{ route('connection.action') }}" method="post">
+                                       
+                                        <form  action="{{ route('connection.action') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$data->id}}">
                                             <button type="submit" class="dropdown-item" name="unpark" value="park" onclick="return confirm('Are you sure, you want parked?')">Un Park</button>
@@ -90,32 +97,6 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$data->connection_name}}</td>
-                            <td>{{$data->is_individual}}</td>
-                            <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                            <td>
-                                @php
-
-
-                                $diffInMonths = Carbon\Carbon::create($data->date_of_last_contact)->diffInMonths(Carbon\Carbon::now());
-
-
-                                @endphp
-
-                                @if($diffInMonths>6)
-                                <button type="button" class="btn" style="background-color: red;"></button>
-                                {{$diffInMonths}}
-                                @else
-                                <button type="button" class="btn" style="background-color: #03d87f;"></button>
-                                {{$diffInMonths}}
-                                @endif
-                            </td>
-                            <!-- <td>{{$data->date_of_last_contact}}</td> -->
-                            <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
-                            <td>{{$data->conhelp->connection_help }}</td>
-                            <!-- <td> {{$data->notes }}</td> -->
-
                         </tr>
                         @endforeach
 
@@ -203,36 +184,18 @@
 <!--End Modal-->
 @endsection
 @push('myscript')
+<!--here is you JS-->
 <script>
-    $("#is_individual").change(function() {
-        hideshow(this.value);
-
-    });
-
-    function hideshow(data) {
-        if (data == 0) {
-            $(".display").hide();
-            $('.display').addClass('d-none');
-        } else {
-            $(".display").show();
-            $('.display').removeClass('d-none');
-        }
-    }
-
     function ModalShow(action, id) {
         if (action == 'store') {
-            $("#put").remove();
             $('#connectionForm')[0].reset();
             $("#connectionForm").attr('action', "{{route('connection.store')}}");
-            $('#htmlAppend').html("");
-            $("htmlAppendy").hide();
-            hideshow(1);
 
         } else if (action == 'edit') {
             url_edit = GetUrl(id, "{{ route('connection.edit', ':id') }}");
             GetData(url_edit);
             url_update = GetUrl(id, "{{ route('connection.update', ':id') }}");
-            $('#connectionForm').append('<input type="hidden" name="_method" value="PUT" id="put">');
+            $('#connectionForm').append('<input type="hidden" name="_method" value="PUT">');
             $("#connectionForm").attr('action', url_update);
         }
 
@@ -240,27 +203,14 @@
     }
 
     function GetData(url) {
-        $.get(url, function(d) {
-            let result = d.data;
+        $.get(url, function(result) {
             console.log(result);
             $("#connection_name").val(result.connection_name);
             $("#connection_type_id").val(result.connection_type_id);
             if (result.is_individual == "Individual") {
                 $("#is_individual").val(1);
-                $("#connection_id").val(result.connection_id);
-                $("#team_id").val(result.team_id);
-                hideshow(1);
-                $('#htmlAppend').html("");
-                $("htmlAppendy").hide();
-
-
             } else {
                 $("#is_individual").val(0);
-                hideshow(0);
-                $("#htmlAppend").html(d.html);
-                $("htmlAppendy").show();
-
-
             }
             $("#activity_id").val(result.activity_id);
             $("#connection_help_id").val(result.connection_help_id);
@@ -276,31 +226,16 @@
 </script>
 
 <script>
-    tippy('.tippy-btn');
-    tippy('#mytool_name', {
-        html: document.querySelector('#tool_name'), // DIRECT ELEMENT option
-        arrow: true,
-        animation: 'fade'
-    });
-    tippy('#mytool_type', {
-        html: document.querySelector('#tool_type'), // DIRECT ELEMENT option
-        arrow: true,
-        animation: 'fade'
-    });
-    tippy('#mytool_date', {
-        html: document.querySelector('#tool_date'), // DIRECT ELEMENT option
-        arrow: true,
-        animation: 'fade'
-    });
-    tippy('#mytool_activity', {
-        html: document.querySelector('#tool_activity'), // DIRECT ELEMENT option
-        arrow: true,
-        animation: 'fade'
-    });
-    tippy('#mytool_help', {
-        html: document.querySelector('#tool_help'), // DIRECT ELEMENT option
-        arrow: true,
-        animation: 'fade'
-    });
+    // tippy('.tippy-btn');
+    // tippy('#myElement', {
+    //     html: document.querySelector('#feature__html'), // DIRECT ELEMENT option
+    //     arrow: true,
+    //     animation: 'fade'
+    // });
+    // tippy('#myElement1', {
+    //     html: document.querySelector('#feature__html1'), // DIRECT ELEMENT option
+    //     arrow: true,
+    //     animation: 'fade'
+    // });
 </script>
 @endpush
