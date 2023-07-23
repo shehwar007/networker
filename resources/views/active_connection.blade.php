@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Connection</h4>
+                    <h4 class="page-title">Connection {{ Carbon\Carbon::now() }}</h4>
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
@@ -88,13 +88,13 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
                                         <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
-                                       
-                                        <form  action="{{ route('connection.action') }}" method="post">
+
+                                        <form action="{{ route('connection.action') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$data->id}}">
                                             <button type="submit" class="dropdown-item" name="park" value="park" onclick="return confirm('Are you sure, you want parked?')">Park</button>
-                                            <button type="submit" class="dropdown-item" name="duplicate" value="duplicate"   onclick="return confirm('Are you sure, you want Duplicate?')">Duplicate</button>
-                                            <button type="submit" class="dropdown-item" name="delete"  value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
+                                            <button type="submit" class="dropdown-item" name="duplicate" value="duplicate" onclick="return confirm('Are you sure, you want Duplicate?')">Duplicate</button>
+                                            <button type="submit" class="dropdown-item" name="delete" value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
                                         </form>
 
                                     </div>
@@ -172,6 +172,30 @@
                                 <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3 display">
+                            <label for="validationServer01"><strong>Organization</strong></label>
+                            <select class="form-control" id="connection_id" name="connection_id">
+                                <option value="">----Select----</option>
+                                @foreach($organization as $data)
+                                <option value="{{$data->id}}">{{$data->connection_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3 display">
+                            <label for="validationServer01"><strong>Team</strong></label>
+                            <select class="form-control" id="team_id" name="team_id">
+                                <option value="">----Select----</option>
+                                @foreach($team as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <hr><br>
+                        <div class="col-md-6 mb-3">
+                            <ul class="list-group" id="htmlAppend">
+                            </ul>
+
+                        </div>
                     </div>
                 </div><!--end modal-body-->
                 <div class="modal-footer">
@@ -189,6 +213,21 @@
 @push('myscript')
 <!--here is you JS-->
 <script>
+    $("#is_individual").change(function() {
+        hideshow(this.value);
+
+    });
+
+    function hideshow(data) {
+        if (data == 0) {
+            $(".display").hide();
+            $('.display').addClass('d-none');
+        } else {
+            $(".display").show();
+            $('.display').removeClass('d-none');
+        }
+    }
+
     function ModalShow(action, id) {
         if (action == 'store') {
             $('#connectionForm')[0].reset();
@@ -206,14 +245,27 @@
     }
 
     function GetData(url) {
-        $.get(url, function(result) {
+        $.get(url, function(d) {
+            let result = d.data;
             console.log(result);
             $("#connection_name").val(result.connection_name);
             $("#connection_type_id").val(result.connection_type_id);
             if (result.is_individual == "Individual") {
                 $("#is_individual").val(1);
+                $("#connection_id").val(result.connection_id);
+                $("#team_id").val(result.team_id);
+                hideshow(1);
+                $('#htmlAppend').html("");
+                $("htmlAppendy").hide();
+               
+
             } else {
                 $("#is_individual").val(0);
+                hideshow(0);
+                $("#htmlAppend").html(d.html);
+                $("htmlAppendy").show();
+               
+
             }
             $("#activity_id").val(result.activity_id);
             $("#connection_help_id").val(result.connection_help_id);

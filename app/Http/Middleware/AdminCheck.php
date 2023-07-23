@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class AdminCheck
 {
+    // ZHe}6WH3ip;~
     /**
      * Handle an incoming request.
      *

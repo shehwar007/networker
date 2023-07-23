@@ -32,5 +32,13 @@ class Connection extends Model
     public function conhelp(){
         return $this->belongsTo(ConnectionHelp::class,'connection_help_id');
     }
+    // public function connection()
+    // {
+    //     return $this->belongsTo(Connection::class, 'connection_id');
+    // }
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id');
+    }
    
 }
