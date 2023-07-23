@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\{ConnectionController,UserController,AuthController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {  
-    return view('dashboard');
-});
+Route::get('/', [AuthController::class,'index']);
+Route::post('loginSubmit', [AuthController::class,'validateCredentials']);
+
+
+Route::group(['middleware' => ['loginCheck']], function () {
 
 Route::resource('connection', ConnectionController::class);
+Route::resource('user', UserController::class);
+Route::post('connection_action', [ConnectionController::class, 'ActionConnection'])->name('connection.action');
 Route::get('parked_connection', [ConnectionController::class, 'indexParkedConnection'])->name('parked_connection.index');
 Route::get('dashboard', [ConnectionController::class, 'indexDashboard'])->name('dashboard.index');
 
-Route::get('/shehwar', function () {
-    
-    return view('active_connection');
-    
+//logout
+Route::get('/logout', function(){
+    session()->flush();
+    return redirect('/');
+})->name('logout');
+
 });

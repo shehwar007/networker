@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Connection')
+@section('title', 'User')
 @push('mycss')
 
 <!--here is you css-->
@@ -33,7 +33,9 @@
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
-                  
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="ModalShow('store');">
+                        New User
+                    </button>
 
 
                 </div><!--end col-->
@@ -45,7 +47,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Parked Connection</h4>
+                <h4 class="card-title">User</h4>
                 <p class="text-muted mb-0">
                 </p>
             </div><!--end card-header-->
@@ -56,28 +58,29 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Category</th>
-                            <th id="myElement1" data-tippy-theme="light rounded">Type</th>
-
-                            <th>Month Since <br><small>Last Contact<small></th>
-                            <th>Next Activity</th>
-                            <th>How to Help <br> the connection</th>
-                            <!-- <th>Notes</th> -->
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
 
 
                     <tbody>
-                        @foreach($connection as $data)
+                        @foreach($user as $data)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$data->connection_name}}</td>
-                            <td>{{$data->is_individual}}</td>
-                            <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                            <td>{{$data->date_of_last_contact}}</td>
-                            <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
-                            <td>{{$data->conhelp->connection_help }}</td>
+                            <td>{{$data->name}}</td>
+                            <td>{{$data->email}}</td>
+                            <td>{{$data->role_data->role ?? "Not Set"}}</td>
+                            <td>
+                                @if($data->status==1)
+                                <span class="badge badge-success">Active</span>
+                                @else
+                                <span class="badge badge-danger">InActive</span>
+                                @endif
+                            </td>
+                          
                             <!-- <td> {{$data->notes }}</td> -->
                             <td class="text-right">
                                 <div class="dropdown d-inline-block">
@@ -89,9 +92,7 @@
                                        
                                         <form  action="{{ route('connection.action') }}" method="post">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$data->id}}">
-                                            <button type="submit" class="dropdown-item" name="unpark" value="park" onclick="return confirm('Are you sure, you want parked?')">Un Park</button>
-
+                                            <button type="submit" class="dropdown-item" name="delete"  value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
                                         </form>
 
                                     </div>
@@ -110,7 +111,7 @@
 
 <div class="modal fade bd-example-modal-xl" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
-        <form id="connectionForm" method="post" enctype="multipart/form-data">
+        <form id="connectionForm" method="post" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,53 +123,35 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label for="validationServer01"><strong>Connection Name</strong></label>
-                            <input id="connection_name" name="connection_name" class="form-control" type="text" placeholder="Enter connection name">
+                            <label for="validationServer01"><strong>Name</strong></label>
+                            <input id="name" name="name" class="form-control" type="text" placeholder="Enter  Name" required>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer01"><strong>Type</strong></label>
-                            <select class="form-control" id="connection_type_id" name="connection_type_id">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationServer01"><strong>Email</strong></label>
+                            <input id="email" name="email" class="form-control" type="email" placeholder="Enter Email" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationServer01"><strong>Password</strong></label>
+                            <input id="password" name="password" class="form-control" type="password" autocomplete="off" placeholder="Enter Password">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationServer01"><strong>Role</strong></label>
+                            <select class="form-control" id="user_role_id" name="user_role_id" required>
                                 <option value="">----Select----</option>
-                                @foreach($connection_types as $data)
-                                <option value="{{$data->id}}">{{$data->connection_type}}</option>
+                                @foreach($role as $data)
+                                <option value="{{$data->id}}">{{$data->role}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer01"><strong>Date of Last Contact</strong></label>
-                            <input type="date" class="form-control" name="date_of_last_contact" id="date_of_last_contact" required>
-                        </div>
+                      
                         <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>Individual/Organisation</strong></label>
-                            <select class="form-control" id="is_individual" name="is_individual">
-                                <option value="1">Individual</option>
-                                <option value="0">Organisation</option>
+                            <label for="validationServer01"><strong>Status</strong></label>
+                            <select class="form-control" id="status" name="status">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>Next Activity</strong></label>
-                            <select class="form-control" id="activity_id" name="activity_id" required>
-                                <option value="">----Select----</option>
-                                @foreach($activities as $data)
-                                <option value="{{$data->id}}">{{$data->activity}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>How to Help the Connection</strong></label>
-                            <select class="form-control" id="connection_help_id" name="connection_help_id">
-                                <option value="">----Select----</option>
-                                @foreach($connection_helps as $data)
-                                <option value="{{$data->id}}">{{$data->connection_help}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Notes</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-                            </div>
-                        </div>
+                    
                     </div>
                 </div><!--end modal-body-->
                 <div class="modal-footer">
@@ -189,12 +172,13 @@
     function ModalShow(action, id) {
         if (action == 'store') {
             $('#connectionForm')[0].reset();
-            $("#connectionForm").attr('action', "{{route('connection.store')}}");
+            $("#connectionForm").attr('action', "{{route('user.store')}}");
 
         } else if (action == 'edit') {
-            url_edit = GetUrl(id, "{{ route('connection.edit', ':id') }}");
+            url_edit = GetUrl(id, "{{ route('user.edit', ':id') }}");
+        
             GetData(url_edit);
-            url_update = GetUrl(id, "{{ route('connection.update', ':id') }}");
+            url_update = GetUrl(id, "{{ route('user.update', ':id') }}");
             $('#connectionForm').append('<input type="hidden" name="_method" value="PUT">');
             $("#connectionForm").attr('action', url_update);
         }
@@ -205,17 +189,10 @@
     function GetData(url) {
         $.get(url, function(result) {
             console.log(result);
-            $("#connection_name").val(result.connection_name);
-            $("#connection_type_id").val(result.connection_type_id);
-            if (result.is_individual == "Individual") {
-                $("#is_individual").val(1);
-            } else {
-                $("#is_individual").val(0);
-            }
-            $("#activity_id").val(result.activity_id);
-            $("#connection_help_id").val(result.connection_help_id);
-            $("#date_of_last_contact").val(result.date_of_last_contact);
-            $("#notes").val(result.notes);
+            $("#name").val(result.name);
+            $("#email").val(result.email);
+            $("#user_role_id").val(result.user_role_id);
+            $("#status").val(result.status);
         })
     }
 

@@ -41,8 +41,8 @@
                                         <div class="card-body">
                                             <div class="row d-flex justify-content-center">                                                
                                                 <div class="col">
-                                                    <p class="text-dark mb-0 font-weight-semibold">Active Connection</p>
-                                                    <h3 class="m-0">24</h3>
+                                                    <p class="text-dark mb-0 font-weight-semibold">Main Connection</p>
+                                                    <h3 class="m-0">{{$main }}</h3>
                                                 </div>
                                                 <div class="col-auto align-self-center">
                                                     <div class="report-main-icon bg-light-alt">
@@ -59,7 +59,7 @@
                                             <div class="row d-flex justify-content-center">                                                
                                                 <div class="col">
                                                     <p class="text-dark mb-0 font-weight-semibold">Parked Connection</p>
-                                                    <h3 class="m-0">40</h3>
+                                                    <h3 class="m-0">{{$park}}</h3>
                                                 </div>
                                                 <div class="col-auto align-self-center">
                                                     <div class="report-main-icon bg-light-alt">
@@ -76,7 +76,7 @@
                                             <div class="row d-flex justify-content-center">                                                
                                                 <div class="col">
                                                     <p class="text-dark mb-0 font-weight-semibold">Users</p>
-                                                    <h3 class="m-0">2</h3>
+                                                    <h3 class="m-0">{{$user}}</h3>
                                                 </div>
                                                 <div class="col-auto align-self-center">
                                                     <div class="report-main-icon bg-light-alt">
