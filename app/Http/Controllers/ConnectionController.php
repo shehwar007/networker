@@ -94,6 +94,7 @@ class ConnectionController extends Controller
         try {
 
             $data = $request->only(['connection_name', 'connection_type_id', 'date_of_last_contact', 'is_individual', 'activity_id', 'connection_help_id', 'notes', 'connection_id', 'team_id']);
+            $data['user_id']= session('adminData')['id'];
             Connection::create($data);
             session()->flash("alert-message", "Great! Connection Added Successfully");
             session()->flash("alert", "success");
@@ -213,6 +214,7 @@ class ConnectionController extends Controller
         // dd($request->all(),$connection);
         try {
             $data = $request->only(['connection_name', 'connection_type_id', 'date_of_last_contact', 'is_individual', 'activity_id', 'connection_help_id', 'notes']);
+            $data['user_id']= session('adminData')['id'];
             $connection->update($data);
             session()->flash("alert-message", "Great! Connection Update Successfully");
             session()->flash("alert", "success");

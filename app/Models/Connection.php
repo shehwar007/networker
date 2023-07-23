@@ -11,6 +11,8 @@ class Connection extends Model
     use HasFactory,SoftDeletes;
     protected $guarded=[];
 
+    protected $table = 'connections';
+
     public function getIsIndividualAttribute($value)
     {
         if($value==1){

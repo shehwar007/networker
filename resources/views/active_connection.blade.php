@@ -57,13 +57,13 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th id="myElement1" data-tippy-theme="light rounded">Type</th>
+                            <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
+                            <th >Category</th>
+                            <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
 
-                            <th>Month Since <br><small>Last Contact<small></th>
-                            <th>Next Activity</th>
-                            <th>How to Help <br> the connection</th>
+                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br><small>Last Contact<small></th>
+                            <th  id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
+                            <th  id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
                             <!-- <th>Notes</th> -->
                             <th>Action</th>
                         </tr>
@@ -77,7 +77,24 @@
                             <td>{{$data->connection_name}}</td>
                             <td>{{$data->is_individual}}</td>
                             <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                            <td>{{$data->date_of_last_contact}}</td>
+                              <td>
+                                @php
+                               
+
+                                $diffInMonths = Carbon\Carbon::create($data->date_of_last_contact)->diffInMonths(Carbon\Carbon::now());
+                                   
+
+                                @endphp
+
+                                @if($diffInMonths>6)
+                                <button type="button" class="btn" style="background-color: red;"></button>
+                                {{$diffInMonths}}
+                                @else
+                                <button type="button" class="btn" style="background-color: #03d87f;"></button>
+                                {{$diffInMonths}}
+                                @endif
+                              </td>
+                            <!-- <td>{{$data->date_of_last_contact }}</td> -->
                             <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
                             <td>{{$data->conhelp->connection_help }}</td>
                             <!-- <td> {{$data->notes }}</td> -->
@@ -206,7 +223,7 @@
         </form>
     </div><!--end modal-dialog-->
 </div>
-<!-- @include('tooltip') -->
+@include('tooltip')
 <!--end modal-->
 <!--End Modal-->
 @endsection
@@ -230,16 +247,18 @@
 
     function ModalShow(action, id) {
         if (action == 'store') {
+            $("#put").remove();
             $('#connectionForm')[0].reset();
             $("#connectionForm").attr('action', "{{route('connection.store')}}");
               $('#htmlAppend').html("");
             $("htmlAppendy").hide();
+            hideshow(1);
 
         } else if (action == 'edit') {
             url_edit = GetUrl(id, "{{ route('connection.edit', ':id') }}");
             GetData(url_edit);
             url_update = GetUrl(id, "{{ route('connection.update', ':id') }}");
-            $('#connectionForm').append('<input type="hidden" name="_method" value="PUT">');
+            $('#connectionForm').append('<input type="hidden" name="_method" value="PUT" id="put">');
             $("#connectionForm").attr('action', url_update);
         }
 
@@ -283,16 +302,31 @@
 </script>
 
 <script>
-    // tippy('.tippy-btn');
-    // tippy('#myElement', {
-    //     html: document.querySelector('#feature__html'), // DIRECT ELEMENT option
-    //     arrow: true,
-    //     animation: 'fade'
-    // });
-    // tippy('#myElement1', {
-    //     html: document.querySelector('#feature__html1'), // DIRECT ELEMENT option
-    //     arrow: true,
-    //     animation: 'fade'
-    // });
+    tippy('.tippy-btn');
+    tippy('#mytool_name', {
+        html: document.querySelector('#tool_name'), // DIRECT ELEMENT option
+        arrow: true,
+        animation: 'fade'
+    });
+    tippy('#mytool_type', {
+        html: document.querySelector('#tool_type'), // DIRECT ELEMENT option
+        arrow: true,
+        animation: 'fade'
+    });
+    tippy('#mytool_date', {
+        html: document.querySelector('#tool_date'), // DIRECT ELEMENT option
+        arrow: true,
+        animation: 'fade'
+    });
+    tippy('#mytool_activity', {
+        html: document.querySelector('#tool_activity'), // DIRECT ELEMENT option
+        arrow: true,
+        animation: 'fade'
+    });
+    tippy('#mytool_help', {
+        html: document.querySelector('#tool_help'), // DIRECT ELEMENT option
+        arrow: true,
+        animation: 'fade'
+    });
 </script>
 @endpush
