@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Connection {{ Carbon\Carbon::now() }}</h4>
+                    <h4 class="page-title">Connection</h4>
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
