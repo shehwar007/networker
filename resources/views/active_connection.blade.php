@@ -232,6 +232,8 @@
         if (action == 'store') {
             $('#connectionForm')[0].reset();
             $("#connectionForm").attr('action', "{{route('connection.store')}}");
+              $('#htmlAppend').html("");
+            $("htmlAppendy").hide();
 
         } else if (action == 'edit') {
             url_edit = GetUrl(id, "{{ route('connection.edit', ':id') }}");

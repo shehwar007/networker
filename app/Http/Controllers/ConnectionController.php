@@ -150,6 +150,8 @@ class ConnectionController extends Controller
                     </li>
                 ';
                 }
+            }else{
+                $html = '';
             }
         } else {
             $html = '';
