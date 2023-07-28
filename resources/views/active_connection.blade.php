@@ -3,6 +3,8 @@
 @push('mycss')
 
 <!--here is you css-->
+
+
 @endpush
 
 @section('page_content')
@@ -29,7 +31,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Connection</h4>
+                    <h4 class="page-title">Active Connection</h4>
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
@@ -46,26 +48,27 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
                 <h4 class="card-title">Main Connection</h4>
                 <p class="text-muted mb-0">
                 </p>
-            </div><!--end card-header-->
+            </div> -->
+            <!--end card-header-->
 
             <div class="card-body">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
                             <th>Action</th>
-                            <th>#</th>
+                         
                             <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
-                            <th>Category</th>
+                       
                             <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
 
-                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br><small>Last Contact<small></th>
+                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br>Last Contact</th>
                             <th id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
                             <th id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
-                            <!-- <th>Notes</th> -->
+                            <th>Notes</th>
 
                         </tr>
                     </thead>
@@ -74,7 +77,7 @@
                     <tbody>
                         @foreach($connection as $data)
                         <tr>
-                        <td class="text-right">
+                            <td class="text-right">
                                 <div class="dropdown d-inline-block">
                                     <a class="dropdown-toggle arrow-none" id="dLabel11" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                         <i class="las la-ellipsis-v font-20 text-muted"></i>
@@ -93,11 +96,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>{{$loop->iteration}}</td>
+                          
                             <td>{{$data->connection_name}}</td>
-                            <td>{{$data->is_individual}}</td>
+                            
                             <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                            <td>
+                            <td style="text-align: center;">
                                 @php
 
 
@@ -117,8 +120,8 @@
                             <!-- <td>{{$data->date_of_last_contact }}</td> -->
                             <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
                             <td>{{$data->conhelp->connection_help }}</td>
-                            <!-- <td> {{$data->notes }}</td> -->
-                           
+                            <td> {{$data->notes }}</td>
+
                         </tr>
                         @endforeach
 
@@ -230,6 +233,41 @@
 <!--End Modal-->
 @endsection
 @push('myscript')
+<script>
+    $(document).ready(function() {
+        var table = $('#datatable-buttons').DataTable({
+            columnDefs: [
+                {
+                    "width": "0px",
+                    "targets": 0
+                } ,
+                {
+                    "width": "0px",
+                    "targets": 2
+                } ,
+                {
+                    "width": "1px",
+                    "targets": 3
+                } ,
+                {
+                    "width": "10px",
+                    "targets": 4
+                } ,
+                {
+                    "width": "11px",
+                    "targets": 5
+                } 
+            ],
+            lengthChange: false,
+            buttons: ['excel', 'print']
+        });
+
+        table.buttons().container()
+            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+
+    });
+</script>
+
 <!--here is you JS-->
 <script>
     $("#is_individual").change(function() {

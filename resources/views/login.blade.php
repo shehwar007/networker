@@ -111,8 +111,7 @@
                             </div>
                             <!--end card-body-->
                             <div class="card-body bg-light-alt text-center">
-                                <span class="text-muted d-none d-sm-inline-block">Shehwar ©
-                                    {{ date('Y') }}</span>
+                                <span class="text-muted d-none d-sm-inline-block"></span>
                             </div>
                         </div>
                         <!--end card-->

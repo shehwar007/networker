@@ -41,7 +41,8 @@ class AuthController extends Controller
                 $session_data['id'] = $isExist->id; 
                 $session_data['email'] = $isExist->email; 
                 session()->put('adminData',$session_data);
-                return redirect('dashboard');
+                return redirect()->route('connection.index');
+            
             }else{
                 session()->flash('message', '<strong>Oh Snap!</strong> Wrong Password!');
                 session()->flash('message_class', 'danger');

@@ -18,10 +18,10 @@ $(document).ready(function() {
 //       buttons: ['copy', 'excel', 'pdf', 'colvis']
 //   });
 
-var table = $('#datatable-buttons').DataTable({
-    lengthChange: false,
-    buttons: [ 'excel', 'print']
-});
+// var table = $('#datatable-buttons').DataTable({
+//     lengthChange: false,
+//     buttons: [ 'excel', 'print']
+// });
 
   table.buttons().container()
       .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');

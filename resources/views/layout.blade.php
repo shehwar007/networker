@@ -49,16 +49,18 @@
         <!--end logo-->
         <div class="menu-content h-100" data-simplebar>
             <ul class="metismenu left-sidenav-menu">
-                <li class="menu-label mt-0">Main</li>
+                <!-- <li class="menu-label mt-0">Main</li> -->
+                {{--
                 <li>
                     <a href="{{route('dashboard.index')}}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
 
                 </li>
+                --}}
 
                 <hr class="hr-dashed hr-menu">
 
                 <li>
-                    <a href="{{route('connection.index')}}"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Main Connections</span><span class="menu-arrow"></span></a>
+                    <a href="{{route('connection.index')}}"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Active Connections</span><span class="menu-arrow"></span></a>
 
                 </li>
 
