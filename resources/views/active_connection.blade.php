@@ -139,7 +139,7 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">Connection</h6>
+                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">View/Edit Connection</h6>
                     <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="la la-times"></i></span>
                     </button>
