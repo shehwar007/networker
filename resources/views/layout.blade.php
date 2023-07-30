@@ -36,7 +36,7 @@
         <div class="brand">
             <a href="index.html" class="logo">
                 <span>
-                    <img src="{{asset('assets/images/logo.jpg')}}" alt="logo-small" class="logo-sm" style="width: 204px;">
+                    <img src="{{asset('assets/images/logo1.jpg')}}" alt="logo-small"  style="width: 204px;">
 
                     <!-- <img src="assets/images/logo-sm.png" alt="logo-small" class="logo-sm"> -->
                 </span>

@@ -36,7 +36,7 @@
                                     <span>
                                         <div>
 
-                                            <img src="{{asset('assets/images/logo.jpg')}}"
+                                            <img src="{{asset('assets/images/logo1.jpg')}}"
                                                 style="width: 350px; ">
 
                                         </div>
@@ -111,7 +111,10 @@
                             </div>
                             <!--end card-body-->
                             <div class="card-body bg-light-alt text-center">
-                                <span class="text-muted d-none d-sm-inline-block"></span>
+                                <span class="text-muted d-none d-sm-inline-block">
+                                <img src="{{asset('assets/images/logo.jpg')}}"
+                                                style="width: 350px; ">
+                                </span>
                             </div>
                         </div>
                         <!--end card-->
