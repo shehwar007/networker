@@ -128,81 +128,16 @@ class ConnectionController extends Controller
         $team = DB::table('teams')->select('id', 'title')->get();
        
 
-
-       return view('edit',compact('connection','connection_types','activities','connection_helps','member','team'));
-       
-        //
-        // if ($connection->is_individual == 0) {
-        //     $data = Connection::where('connection_id', $connection->id)->where('is_individual', 1)->get();
-        //     $html = '';
-        //     if ($data) {
-        //          $html .='
-        //         <li class="list-group-item d-flex justify-content-between align-items-center">
-        //             <div text-bold font-20>
-        //               <b> Team Member</b>
-        //             </div>
-        //             <span>Role</span>
-        //         </li>';
-        //         foreach ($data as $d) {
+         $selected_dropdown= DB::table('connection_teams')->where('connection_id',$connection->id)->get();
+         
 
 
-        //             $html .= '
-        //             <li class="list-group-item d-flex justify-content-between align-items-center">
-        //                 <div>
-        //                     <i class="la la-check text-muted font-16 mr-2"></i>' . $d->connection_name . '
-        //                 </div>
-        //                 <span class="badge badge-outline-primary badge-pill">' . $d->team->title ?? "Not Set" . '</span>
-        //             </li>
-        //         ';
-        //         }
-        //     }else{
-        //         $html = '';
-        //     }
-        // } else {
-        //     $html = '';
-        // }
+       return view('edit',compact('connection','connection_types','activities','connection_helps','member','team','selected_dropdown'));
+     
 
 
 
-        // return response()->json([
-        //     'data' => $connection,
-        //     'html' => $html
 
-        // ]);
-        //     <ul class="list-group">
-        //     <li class="list-group-item d-flex justify-content-between align-items-center">
-        //         <div>
-        //             <i class="la la-check text-muted font-16 mr-2"></i>Cras justo odio
-        //         </div>
-        //         <span class="badge badge-outline-primary badge-pill">4</span>
-        //     </li>
-        //     <li class="list-group-item d-flex justify-content-between align-items-center">
-        //         <div>
-        //             <i class="la la-bell text-muted font-18 mr-2"></i>New Notifications
-        //         </div>
-
-        //         <span class="badge badge-outline-secondary badge-pill">New</span>
-        //     </li>
-        //     <li class="list-group-item d-flex justify-content-between align-items-center">
-        //         <div>
-        //             <i class="la la-money text-muted font-16 mr-2"></i>Payment Successfull
-        //         </div>
-        //         <span class="badge badge-outline-success badge-pill">Successfully</span>
-        //     </li>
-        //     <li class="list-group-item d-flex justify-content-between align-items-center">
-        //         <div>
-        //             <i class="la la-warning text-muted font-16 mr-2"></i>Payment pending
-        //         </div>
-        //         <span class="badge badge-outline-warning">Pending</span>
-        //     </li>
-        //     <li class="list-group-item d-flex justify-content-between align-items-center">
-        //         <div>
-        //             <i class="la la-comments text-muted font-16 mr-2"></i>Good Morning!
-        //         </div>
-        //         <span class="badge badge-outline-info badge-pill">1</span>
-        //     </li>
-        // </ul>
-        // return $connection;
     }
 
     /**
@@ -220,6 +155,19 @@ class ConnectionController extends Controller
             $data = $request->only(['connection_name', 'connection_type_id', 'date_of_last_contact', 'is_individual', 'activity_id', 'connection_help_id', 'notes']);
             $data['user_id']= session('adminData')['id'];
             $connection->update($data);
+
+            DB::table('connection_teams')->where('connection_id',$connection->id)->delete();
+            
+            foreach($request->connection_teams as $data){
+                
+                DB::table('connection_teams')->insert([
+                 'connection_id' => $connection->id,
+                  'member_id' => $data['member_id'],
+                  'team_id' => $data['team_id'],
+               ]);
+            }
+           
+            
             session()->flash("alert-message", "Great! Connection Update Successfully");
             session()->flash("alert", "success");
         } catch (\Exception $ex) {

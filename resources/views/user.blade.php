@@ -89,9 +89,10 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
                                         <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
                                        
-                                        <form  action="{{ route('connection.action') }}" method="post">
+                                        <form  action="{{ route('user.destroy',$data->id) }}" method="post">
                                             @csrf
-                                            <button type="submit" class="dropdown-item" name="delete"  value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item"  onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
                                         </form>
 
                                     </div>

@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ConnectionController,UserController,AuthController};
+use App\Http\Controllers\{ConnectionController,UserController,AuthController, TeamController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +20,10 @@ Route::post('loginSubmit', [AuthController::class,'validateCredentials']);
 Route::group(['middleware' => ['loginCheck']], function () {
 
 Route::resource('connection', ConnectionController::class);
+Route::resource('team', TeamController::class);
+Route::get('team_delete/{team}', [TeamController::class, 'destroy']);
+
+
 Route::resource('user', UserController::class);
 Route::post('connection_action', [ConnectionController::class, 'ActionConnection'])->name('connection.action');
 Route::get('parked_connection', [ConnectionController::class, 'indexParkedConnection'])->name('parked_connection.index');
