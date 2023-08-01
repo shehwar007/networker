@@ -5,12 +5,13 @@
 <!--here is you css-->
 <style>
     .btn-icon-circle-sm {
-        width: 12px;
+        width: -12px;
         height: 21px;
         display: inline-flex;
         justify-content: center;
-        align-items: center;
+        align-items: cent;
         border-radius: 100%;
+      
         line-height: 1;
     }
 </style>
@@ -46,12 +47,9 @@
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
-                    <a href="{{route('connection.create')}}" type="button" class="btn btn-outline-primary btn-sm">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="ModalShow('store');">
                         New Connection
-                    </a>
-                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" onclick="ModalShow('store');">
-                        New Connection
-                    </button> -->
+                    </button>
 
 
                 </div><!--end col-->
@@ -97,10 +95,7 @@
                                         <i class="las la-ellipsis-v font-20 text-muted"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
-
-                                     <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
-
-                                        <!-- <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a> -->
+                                        <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
 
                                         <form action="{{ route('connection.action') }}" method="post">
                                             @csrf
@@ -151,7 +146,7 @@
 <!--Start Modal-->
 
 <div class="modal fade bd-example-modal-xl" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document"> 
+    <div class="modal-dialog modal-xl" role="document">
         <form id="connectionForm" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">

@@ -15,7 +15,7 @@ class AuthController extends Controller
      */
     public function index()
     {   if(session()->has('adminData')){
-        return redirect('dashboard');
+        return redirect()->route('connection.index');
         }
         return view('login');
     }

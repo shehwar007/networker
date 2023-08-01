@@ -3,19 +3,6 @@
 @push('mycss')
 
 <!--here is you css-->
-<style>
-    .btn-icon-circle-sm {
-        width: 12px;
-        height: 21px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100%;
-        line-height: 1;
-    }
-</style>
-
-
 @endpush
 
 @section('page_content')
@@ -42,16 +29,11 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Active Connection</h4>
+                    <h4 class="page-title">Connection</h4>
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
-                    <a href="{{route('connection.create')}}" type="button" class="btn btn-outline-primary btn-sm">
-                        New Connection
-                    </a>
-                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" onclick="ModalShow('store');">
-                        New Connection
-                    </button> -->
+
 
 
                 </div><!--end col-->
@@ -62,27 +44,26 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <!-- <div class="card-header">
-                <h4 class="card-title">Main Connection</h4>
+            <div class="card-header">
+                <h4 class="card-title">Parked Connection</h4>
                 <p class="text-muted mb-0">
                 </p>
-            </div> -->
-            <!--end card-header-->
+            </div><!--end card-header-->
 
             <div class="card-body">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Action</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th id="myElement1" data-tippy-theme="light rounded">Type</th>
 
-                            <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
-
-                            <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
-
-                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br>Last Contact</th>
-                            <th id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
-                            <th id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
-                            <th>Notes</th>
+                            <th>Month Since <br><small>Last Contact<small></th>
+                            <th>Next Activity</th>
+                            <th>How to Help <br> the connection</th>
+                            <!-- <th>Notes</th> -->
 
                         </tr>
                     </thead>
@@ -97,27 +78,23 @@
                                         <i class="las la-ellipsis-v font-20 text-muted"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
-
-                                     <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
-
-                                        <!-- <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a> -->
+                                        <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
 
                                         <form action="{{ route('connection.action') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$data->id}}">
-                                            <button type="submit" class="dropdown-item" name="park" value="park" onclick="return confirm('Are you sure, you want parked?')">Park</button>
-                                            <button type="submit" class="dropdown-item" name="duplicate" value="duplicate" onclick="return confirm('Are you sure, you want Duplicate?')">Duplicate</button>
-                                            <button type="submit" class="dropdown-item" name="delete" value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
+                                            <button type="submit" class="dropdown-item" name="unpark" value="park" onclick="return confirm('Are you sure, you want parked?')">Un Park</button>
+
                                         </form>
 
                                     </div>
                                 </div>
                             </td>
-
+                            <td>{{$loop->iteration}}</td>
                             <td>{{$data->connection_name}}</td>
-
+                            <td>{{$data->is_individual}}</td>
                             <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                            <td style="text-align: center;">
+                            <td>
                                 @php
 
 
@@ -127,17 +104,17 @@
                                 @endphp
 
                                 @if($diffInMonths>6)
-                                <button type="button" class="btn  btn-icon-circle-sm" style="background-color: red;"></button>
+                                <button type="button" class="btn" style="background-color: red;"></button>
                                 {{$diffInMonths}}
                                 @else
-                                <button type="button" class="btn  btn-icon-circle-sm" style="background-color: #03d87f;"></button>
+                                <button type="button" class="btn" style="background-color: #03d87f;"></button>
                                 {{$diffInMonths}}
                                 @endif
                             </td>
-                            <!-- <td>{{$data->date_of_last_contact }}</td> -->
+                            <!-- <td>{{$data->date_of_last_contact}}</td> -->
                             <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
                             <td>{{$data->conhelp->connection_help }}</td>
-                            <td> {{$data->notes }}</td>
+                            <!-- <td> {{$data->notes }}</td> -->
 
                         </tr>
                         @endforeach
@@ -151,12 +128,12 @@
 <!--Start Modal-->
 
 <div class="modal fade bd-example-modal-xl" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document"> 
+    <div class="modal-dialog modal-xl" role="document">
         <form id="connectionForm" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">View/Edit Connection</h6>
+                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">Connection</h6>
                     <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="la la-times"></i></span>
                     </button>
@@ -211,30 +188,6 @@
                                 <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3 display">
-                            <label for="validationServer01"><strong>Organization</strong></label>
-                            <select class="form-control" id="connection_id" name="connection_id">
-                                <option value="">----Select----</option>
-                                @foreach($organization as $data)
-                                <option value="{{$data->id}}">{{$data->connection_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3 display">
-                            <label for="validationServer01"><strong>Team</strong></label>
-                            <select class="form-control" id="team_id" name="team_id">
-                                <option value="">----Select----</option>
-                                @foreach($team as $data)
-                                <option value="{{$data->id}}">{{$data->title}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <hr><br>
-                        <div class="col-md-6 mb-3">
-                            <ul class="list-group" id="htmlAppend">
-                            </ul>
-
-                        </div>
                     </div>
                 </div><!--end modal-body-->
                 <div class="modal-footer">
@@ -245,46 +198,11 @@
         </form>
     </div><!--end modal-dialog-->
 </div>
-@include('tooltip')
+<!-- @include('tooltip') -->
 <!--end modal-->
 <!--End Modal-->
 @endsection
 @push('myscript')
-<script>
-    $(document).ready(function() {
-        var table = $('#datatable-buttons').DataTable({
-            columnDefs: [{
-                    "width": "0px",
-                    "targets": 0
-                },
-                {
-                    "width": "0px",
-                    "targets": 2
-                },
-                {
-                    "width": "1px",
-                    "targets": 3
-                },
-                {
-                    "width": "10px",
-                    "targets": 4
-                },
-                {
-                    "width": "11px",
-                    "targets": 5
-                }
-            ],
-            lengthChange: false,
-            buttons: ['excel', 'print']
-        });
-
-        table.buttons().container()
-            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-
-    });
-</script>
-
-<!--here is you JS-->
 <script>
     $("#is_individual").change(function() {
         hideshow(this.value);

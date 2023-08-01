@@ -117,7 +117,7 @@
                             <img src="{{asset('assets/images/logo.jpg')}}" alt="logo-small" style="width: 204px;">
 
                             <span class="ml-1 nav-user-name hidden-sm">{{session('adminData')['name']}}</span>
-                            <img src="{{asset('assets/images/users/user-5.jpg')}}" alt="profile-user" class="rounded-circle thumb-xs" />
+                            <img src="assets/images/users/user-5.jpg" alt="profile-user" class="rounded-circle thumb-xs" />
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right">

@@ -1,19 +1,6 @@
 @extends('layout')
-@section('title', 'Connection')
+@section('title', 'New Connection')
 @push('mycss')
-
-<!--here is you css-->
-<style>
-    .btn-icon-circle-sm {
-        width: 12px;
-        height: 21px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100%;
-        line-height: 1;
-    }
-</style>
 
 
 @endpush
@@ -40,129 +27,21 @@
             </div>
             @endif
 
-            <div class="row">
-                <div class="col">
-                    <h4 class="page-title">Active Connection</h4>
 
-                </div><!--end col data-toggle="modal" data-target="#connection"-->
-                <div class="col-auto align-self-center">
-                    <a href="{{route('connection.create')}}" type="button" class="btn btn-outline-primary btn-sm">
-                        New Connection
-                    </a>
-                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" onclick="ModalShow('store');">
-                        New Connection
-                    </button> -->
-
-
-                </div><!--end col-->
-            </div><!--end row-->
         </div><!--end page-title-box-->
     </div><!--end col-->
 </div>
 <div class="row">
-    <div class="col-12">
+    <div class="col-lg-12">
         <div class="card">
-            <!-- <div class="card-header">
-                <h4 class="card-title">Main Connection</h4>
-                <p class="text-muted mb-0">
-                </p>
-            </div> -->
-            <!--end card-header-->
+            <div class="card-header">
+                <h4 class="card-title">New Connetion</h4>
 
+            </div><!--end card-header-->
             <div class="card-body">
-                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th></th>
-
-                            <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
-
-                            <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
-
-                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br>Last Contact</th>
-                            <th id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
-                            <th id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
-                            <th>Notes</th>
-
-                        </tr>
-                    </thead>
-
-
-                    <tbody>
-                        @foreach($connection as $data)
-                        <tr>
-                            <td class="text-right">
-                                <div class="dropdown d-inline-block">
-                                    <a class="dropdown-toggle arrow-none" id="dLabel11" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                        <i class="las la-ellipsis-v font-20 text-muted"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
-
-                                     <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
-
-                                        <!-- <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a> -->
-
-                                        <form action="{{ route('connection.action') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{$data->id}}">
-                                            <button type="submit" class="dropdown-item" name="park" value="park" onclick="return confirm('Are you sure, you want parked?')">Park</button>
-                                            <button type="submit" class="dropdown-item" name="duplicate" value="duplicate" onclick="return confirm('Are you sure, you want Duplicate?')">Duplicate</button>
-                                            <button type="submit" class="dropdown-item" name="delete" value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </td>
-
-                            <td>{{$data->connection_name}}</td>
-
-                            <td>{{$data->contype->connection_type ?? "NOT FOUND"}}</td>
-                            <td style="text-align: center;">
-                                @php
-
-
-                                $diffInMonths = Carbon\Carbon::create($data->date_of_last_contact)->diffInMonths(Carbon\Carbon::now());
-
-
-                                @endphp
-
-                                @if($diffInMonths>6)
-                                <button type="button" class="btn  btn-icon-circle-sm" style="background-color: red;"></button>
-                                {{$diffInMonths}}
-                                @else
-                                <button type="button" class="btn  btn-icon-circle-sm" style="background-color: #03d87f;"></button>
-                                {{$diffInMonths}}
-                                @endif
-                            </td>
-                            <!-- <td>{{$data->date_of_last_contact }}</td> -->
-                            <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
-                            <td>{{$data->conhelp->connection_help }}</td>
-                            <td> {{$data->notes }}</td>
-
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> <!-- end col -->
-</div>
-<!--Start Modal-->
-
-<div class="modal fade bd-example-modal-xl" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document"> 
-        <form id="connectionForm" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">View/Edit Connection</h6>
-                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="la la-times"></i></span>
-                    </button>
-                </div><!--end modal-header-->
-                <div class="modal-body">
-                    <div class="form-row">
+                <form id="connectionForm" method="post" action="{{route('connection.store')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="validationServer01"><strong>Connection Name</strong></label>
                             <input id="connection_name" name="connection_name" class="form-control" type="text" placeholder="Enter connection name">
@@ -182,7 +61,8 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="validationServer01"><strong>Individual/Organisation</strong></label>
-                            <select class="form-control" id="is_individual" name="is_individual">
+                            <select class="form-control" id="is_individual" name="is_individual" required>
+                            <option value="">---Select---</option>
                                 <option value="1">Individual</option>
                                 <option value="0">Organisation</option>
                             </select>
@@ -211,7 +91,7 @@
                                 <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3 display">
+                        <div class="col-md-6 mb-3 display d-none">
                             <label for="validationServer01"><strong>Organization</strong></label>
                             <select class="form-control" id="connection_id" name="connection_id">
                                 <option value="">----Select----</option>
@@ -220,7 +100,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3 display">
+                        <div class="col-md-6 mb-3 display  d-none">
                             <label for="validationServer01"><strong>Team</strong></label>
                             <select class="form-control" id="team_id" name="team_id">
                                 <option value="">----Select----</option>
@@ -236,16 +116,23 @@
 
                         </div>
                     </div>
-                </div><!--end modal-body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                </div><!--end modal-footer-->
-            </div><!--end modal-content-->
-        </form>
-    </div><!--end modal-dialog-->
+
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+
+                            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div><!--end card-body-->
+        </div><!--end card-->
+
+    </div>
 </div>
-@include('tooltip')
+<!--Start Modal-->
+
+
+
 <!--end modal-->
 <!--End Modal-->
 @endsection
@@ -292,7 +179,7 @@
     });
 
     function hideshow(data) {
-        if (data == 0) {
+        if (data == 1) {
             $(".display").hide();
             $('.display').addClass('d-none');
         } else {

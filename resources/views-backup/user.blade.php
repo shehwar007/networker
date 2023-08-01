@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Users</h4>
+                    <h4 class="page-title">Connection</h4>
 
                 </div><!--end col data-toggle="modal" data-target="#connection"-->
                 <div class="col-auto align-self-center">
@@ -46,11 +46,12 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <!-- <div class="card-header">
+            <div class="card-header">
                 <h4 class="card-title">User</h4>
                 <p class="text-muted mb-0">
                 </p>
-            </div> -->
+            </div><!--end card-header-->
+
             <div class="card-body">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>

@@ -17,15 +17,7 @@ class ConnectionController extends Controller
      */
     public function index()
     {
-        // $date = Carbon::create(2023, 3, 23);
-        // $currentDate = Carbon::now();
-
-        // $diffInMonths = $date->diffInMonths($currentDate);
-        // dd($diffInMonths);
-        //    $connection= Connection::find(39);
-        //    $connection= Connection::where('connection_id',39)->get();
-        //    dd($connection[0]->team->title);
-        //for the model dropdown
+      
         $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
         $activities = DB::table('activities')->select('id', 'activity')->get();
         $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
@@ -33,17 +25,19 @@ class ConnectionController extends Controller
         $organization = DB::table('connections')->select('id', 'connection_name')->where('is_individual', 0)->get();
         $team = DB::table('teams')->select('id', 'title')->get();
 
-
-        //   dd( $organization );
-
-
         //for the table dropdown
-        $connection = Connection::select('*')->where('status', 0)->get();
 
-        $tooltip['shehwar'] = "shehwar1";
-        $tooltip['shehwar2'] = "shehwar2";
+        if(session('adminData')['role']==1){
+            $connection = Connection::select('*')->latest()->where('status', 0)->get();
+        }else{
+            $connection = Connection::select('*')->latest()->where('user_id',session('adminData')['id'])->where('status', 0)->get();
+        }
+        
+       
+        
 
-        return view('active_connection', compact('organization', 'team', 'tooltip', 'connection', 'connection_types', 'activities', 'connection_helps'));
+
+        return view('active_connection', compact('organization','team','connection', 'connection_types', 'activities', 'connection_helps'));
     }
 
     public function indexParkedConnection()
@@ -56,10 +50,9 @@ class ConnectionController extends Controller
         //for the table dropdown
         $connection = Connection::select('*')->where('status', 1)->get();
 
-        $tooltip['shehwar'] = "shehwar1";
-        $tooltip['shehwar2'] = "shehwar2";
+       
 
-        return view('parked_connection', compact('tooltip', 'connection', 'connection_types', 'activities', 'connection_helps'));
+        return view('parked_connection', compact('connection', 'connection_types', 'activities', 'connection_helps'));
     }
 
     public function indexDashboard()
@@ -80,7 +73,17 @@ class ConnectionController extends Controller
      */
     public function create()
     {
-        //
+
+        $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
+        $activities = DB::table('activities')->select('id', 'activity')->get();
+        $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
+        $organization = DB::table('connections')->select('id', 'connection_name')->where('is_individual', 0)->get();
+
+        $team = DB::table('teams')->select('id', 'title')->get();
+        $connection = Connection::select('*')->where('status', 0)->get();
+
+
+       return view('create',compact('connection_types','activities','connection_helps','organization','team','connection'));
     }
 
     /**
@@ -93,7 +96,7 @@ class ConnectionController extends Controller
     {
         try {
 
-            $data = $request->only(['connection_name', 'connection_type_id', 'date_of_last_contact', 'is_individual', 'activity_id', 'connection_help_id', 'notes', 'connection_id', 'team_id']);
+            $data = $request->only(['connection_name', 'connection_type_id', 'date_of_last_contact', 'is_individual', 'activity_id', 'connection_help_id', 'notes']);
             $data['user_id']= session('adminData')['id'];
             Connection::create($data);
             session()->flash("alert-message", "Great! Connection Added Successfully");
@@ -127,44 +130,57 @@ class ConnectionController extends Controller
      */
     public function edit(Connection $connection)
     {
+      
+
+        $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
+        $activities = DB::table('activities')->select('id', 'activity')->get();
+        $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
+        $organization = DB::table('connections')->select('id', 'connection_name')->where('is_individual', 0)->get();
+
+        $team = DB::table('teams')->select('id', 'title')->get();
+        // $connection = Connection::select('*')->where('status', 0)->get();
+
+
+       return view('edit',compact('connection','connection_types','activities','connection_helps','organization','team'));
+       
         //
-        if ($connection->is_individual == 0) {
-            $data = Connection::where('connection_id', $connection->id)->where('is_individual', 1)->get();
-            $html = '';
-            if ($data) {
-                 $html .='
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div text-bold font-20>
-                      <b> Team Member</b>
-                    </div>
-                    <span>Role</span>
-                </li>';
-                foreach ($data as $d) {
+        // if ($connection->is_individual == 0) {
+        //     $data = Connection::where('connection_id', $connection->id)->where('is_individual', 1)->get();
+        //     $html = '';
+        //     if ($data) {
+        //          $html .='
+        //         <li class="list-group-item d-flex justify-content-between align-items-center">
+        //             <div text-bold font-20>
+        //               <b> Team Member</b>
+        //             </div>
+        //             <span>Role</span>
+        //         </li>';
+        //         foreach ($data as $d) {
 
 
-                    $html .= '
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <i class="la la-check text-muted font-16 mr-2"></i>' . $d->connection_name . '
-                        </div>
-                        <span class="badge badge-outline-primary badge-pill">' . $d->team->title ?? "Not Set" . '</span>
-                    </li>
-                ';
-                }
-            }else{
-                $html = '';
-            }
-        } else {
-            $html = '';
-        }
+        //             $html .= '
+        //             <li class="list-group-item d-flex justify-content-between align-items-center">
+        //                 <div>
+        //                     <i class="la la-check text-muted font-16 mr-2"></i>' . $d->connection_name . '
+        //                 </div>
+        //                 <span class="badge badge-outline-primary badge-pill">' . $d->team->title ?? "Not Set" . '</span>
+        //             </li>
+        //         ';
+        //         }
+        //     }else{
+        //         $html = '';
+        //     }
+        // } else {
+        //     $html = '';
+        // }
 
 
 
-        return response()->json([
-            'data' => $connection,
-            'html' => $html
+        // return response()->json([
+        //     'data' => $connection,
+        //     'html' => $html
 
-        ]);
+        // ]);
         //     <ul class="list-group">
         //     <li class="list-group-item d-flex justify-content-between align-items-center">
         //         <div>
