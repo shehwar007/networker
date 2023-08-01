@@ -51,7 +51,7 @@
                             <select class="form-control" id="connection_type_id" name="connection_type_id">
                                 <option value="">----Select----</option>
                                 @foreach($connection_types as $data)
-                                <option  {{ $connection->connection_type_id == $data->id ? 'selected':'' }} value="{{$data->id}}"  >{{$data->connection_type}}</option>
+                                <option {{ $connection->connection_type_id == $data->id ? 'selected':'' }} value="{{$data->id}}">{{$data->connection_type}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,13 +62,13 @@
                         <div class="col-md-4 mb-3">
                             <label for="validationServer01"><strong>Individual/Organisation</strong></label>
                             <select class="form-control" id="is_individual" name="is_individual" required>
-                                <option >---Select---</option>
-                                <option  {{ $connection->is_individual == "Individual" ? 'selected':'' }}value="1" >Individual</option>
-                                <option  {{ $connection->is_individual == "Organization" ? 'selected':'' }} value="0" >Organisation</option>
+                                <option>---Select---</option>
+                                <option {{ $connection->is_individual == "Individual" ? 'selected':'' }}value="1">Individual</option>
+                                <option {{ $connection->is_individual == "Organization" ? 'selected':'' }} value="0">Organisation</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="validationServer01"  id="mytool_activity" data-tippy-theme="light rounded"><strong>Next Activity</strong></label>
+                            <label for="validationServer01" id="mytool_activity" data-tippy-theme="light rounded"><strong>Next Activity</strong></label>
                             <select class="form-control" id="activity_id" name="activity_id" required>
                                 <option value="">----Select----</option>
                                 @foreach($activities as $data)
@@ -94,6 +94,73 @@
 
 
 
+                    </div>
+
+                    <br></hr>
+                    </hr>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="repeater-custom-show-hide">
+                                <div data-repeater-list="family">
+                                    <div data-repeater-item="">
+                                        <div class="form-group row  d-flex align-items-end">
+                                            <div class="col-sm-5">
+                                                <label class="control-label">Member</label>
+                                                <select class="form-control" id="connection_id" name="connection_id">
+                                                    <option value="">----Select----</option>
+                                                    @foreach($member as $data)
+                                                    <option value="{{$data->id}}">{{$data->connection_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <label class="control-label">Team</label>
+                                                <select class="form-control" id="team_id" name="team_id">
+                                                    <option value="">----Select----</option>
+                                                    @foreach($team as $data)
+                                                    <option value="{{$data->id}}">{{$data->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+
+
+                                            <div class="col-sm-1">
+                                                <button data-repeater-delete class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+
+                                                <!-- <span data-repeater-delete="" class="btn btn-danger btn-sm">
+                                                      <i class="fa fa-minus"></i>  -->
+
+                                                </span>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <!--end row-->
+                                    </div>
+                                    <!--end /div-->
+
+
+                                </div>
+                                <!--end repet-list-->
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-sm-12">
+                                        <button data-repeater-create="" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+
+                                        <!-- <span data-repeater-create="" class="btn btn-secondary btn-sm">
+                                                             <span class="fa fa-plus"></span> Add
+                                                                 </span> -->
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                            </div>
+                            <!--end repeter-->
+
+                        </div>
                     </div>
 
                     <div class="row">

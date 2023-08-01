@@ -17,27 +17,14 @@ class ConnectionController extends Controller
      */
     public function index()
     {
-      
-        $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
-        $activities = DB::table('activities')->select('id', 'activity')->get();
-        $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
-
-        $organization = DB::table('connections')->select('id', 'connection_name')->where('is_individual', 0)->get();
-        $team = DB::table('teams')->select('id', 'title')->get();
-
-        //for the table dropdown
 
         if(session('adminData')['role']==1){
             $connection = Connection::select('*')->latest()->where('status', 0)->get();
         }else{
             $connection = Connection::select('*')->latest()->where('user_id',session('adminData')['id'])->where('status', 0)->get();
-        }
-        
-       
-        
+        }        
 
-
-        return view('active_connection', compact('organization','team','connection', 'connection_types', 'activities', 'connection_helps'));
+        return view('active_connection', compact('connection'));
     }
 
     public function indexParkedConnection()
@@ -55,16 +42,16 @@ class ConnectionController extends Controller
         return view('parked_connection', compact('connection', 'connection_types', 'activities', 'connection_helps'));
     }
 
-    public function indexDashboard()
-    {
+    // public function indexDashboard()
+    // {
 
-        $connection = Connection::get();
-        $main = $connection->where('status', 0)->count();
-        $park = $connection->where('status', 1)->count();
-        $user = User::count();
+    //     $connection = Connection::get();
+    //     $main = $connection->where('status', 0)->count();
+    //     $park = $connection->where('status', 1)->count();
+    //     $user = User::count();
 
-        return view('dashboard', compact('main', 'park', 'user'));
-    }
+    //     return view('dashboard', compact('main', 'park', 'user'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -73,17 +60,11 @@ class ConnectionController extends Controller
      */
     public function create()
     {
-
         $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
         $activities = DB::table('activities')->select('id', 'activity')->get();
         $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
-        $organization = DB::table('connections')->select('id', 'connection_name')->where('is_individual', 0)->get();
-
-        $team = DB::table('teams')->select('id', 'title')->get();
-        $connection = Connection::select('*')->where('status', 0)->get();
-
-
-       return view('create',compact('connection_types','activities','connection_helps','organization','team','connection'));
+       
+       return view('create',compact('connection_types','activities','connection_helps'));
     }
 
     /**
@@ -135,13 +116,20 @@ class ConnectionController extends Controller
         $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
         $activities = DB::table('activities')->select('id', 'activity')->get();
         $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
-        $organization = DB::table('connections')->select('id', 'connection_name')->where('is_individual', 0)->get();
+
+
+        if(session('adminData')['role']==1){
+            $member = Connection::select('id','connection_name')->latest()->where('is_individual',0)->get();
+        }else{
+            $member = Connection::select('id','connection_name')->latest()->where('is_individual',0)->where('user_id',session('adminData')['id'])->get();
+        }
+       
 
         $team = DB::table('teams')->select('id', 'title')->get();
-        // $connection = Connection::select('*')->where('status', 0)->get();
+       
 
 
-       return view('edit',compact('connection','connection_types','activities','connection_helps','organization','team'));
+       return view('edit',compact('connection','connection_types','activities','connection_helps','member','team'));
        
         //
         // if ($connection->is_individual == 0) {

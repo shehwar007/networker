@@ -44,14 +44,12 @@
                 <div class="col">
                     <h4 class="page-title">Active Connection</h4>
 
-                </div><!--end col data-toggle="modal" data-target="#connection"-->
+                </div>
                 <div class="col-auto align-self-center">
                     <a href="{{route('connection.create')}}" type="button" class="btn btn-outline-primary btn-sm">
                         New Connection
                     </a>
-                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" onclick="ModalShow('store');">
-                        New Connection
-                    </button> -->
+                   
 
 
                 </div><!--end col-->
@@ -62,12 +60,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <!-- <div class="card-header">
-                <h4 class="card-title">Main Connection</h4>
-                <p class="text-muted mb-0">
-                </p>
-            </div> -->
-            <!--end card-header-->
+           
 
             <div class="card-body">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -150,101 +143,6 @@
 </div>
 <!--Start Modal-->
 
-<div class="modal fade bd-example-modal-xl" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document"> 
-        <form id="connectionForm" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title m-0" id="myExtraLargeModalLabel">View/Edit Connection</h6>
-                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="la la-times"></i></span>
-                    </button>
-                </div><!--end modal-header-->
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="validationServer01"><strong>Connection Name</strong></label>
-                            <input id="connection_name" name="connection_name" class="form-control" type="text" placeholder="Enter connection name">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer01"><strong>Type</strong></label>
-                            <select class="form-control" id="connection_type_id" name="connection_type_id">
-                                <option value="">----Select----</option>
-                                @foreach($connection_types as $data)
-                                <option value="{{$data->id}}">{{$data->connection_type}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer01"><strong>Date of Last Contact</strong></label>
-                            <input type="date" class="form-control" name="date_of_last_contact" id="date_of_last_contact" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>Individual/Organisation</strong></label>
-                            <select class="form-control" id="is_individual" name="is_individual">
-                                <option value="1">Individual</option>
-                                <option value="0">Organisation</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>Next Activity</strong></label>
-                            <select class="form-control" id="activity_id" name="activity_id" required>
-                                <option value="">----Select----</option>
-                                @foreach($activities as $data)
-                                <option value="{{$data->id}}">{{$data->activity}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01"><strong>How to Help the Connection</strong></label>
-                            <select class="form-control" id="connection_help_id" name="connection_help_id">
-                                <option value="">----Select----</option>
-                                @foreach($connection_helps as $data)
-                                <option value="{{$data->id}}">{{$data->connection_help}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Notes</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3 display">
-                            <label for="validationServer01"><strong>Organization</strong></label>
-                            <select class="form-control" id="connection_id" name="connection_id">
-                                <option value="">----Select----</option>
-                                @foreach($organization as $data)
-                                <option value="{{$data->id}}">{{$data->connection_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3 display">
-                            <label for="validationServer01"><strong>Team</strong></label>
-                            <select class="form-control" id="team_id" name="team_id">
-                                <option value="">----Select----</option>
-                                @foreach($team as $data)
-                                <option value="{{$data->id}}">{{$data->title}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <hr><br>
-                        <div class="col-md-6 mb-3">
-                            <ul class="list-group" id="htmlAppend">
-                            </ul>
-
-                        </div>
-                    </div>
-                </div><!--end modal-body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                </div><!--end modal-footer-->
-            </div><!--end modal-content-->
-        </form>
-    </div><!--end modal-dialog-->
-</div>
 @include('tooltip')
 <!--end modal-->
 <!--End Modal-->
@@ -284,78 +182,6 @@
     });
 </script>
 
-<!--here is you JS-->
-<script>
-    $("#is_individual").change(function() {
-        hideshow(this.value);
-
-    });
-
-    function hideshow(data) {
-        if (data == 0) {
-            $(".display").hide();
-            $('.display').addClass('d-none');
-        } else {
-            $(".display").show();
-            $('.display').removeClass('d-none');
-        }
-    }
-
-    function ModalShow(action, id) {
-        if (action == 'store') {
-            $("#put").remove();
-            $('#connectionForm')[0].reset();
-            $("#connectionForm").attr('action', "{{route('connection.store')}}");
-            $('#htmlAppend').html("");
-            $("htmlAppendy").hide();
-            hideshow(1);
-
-        } else if (action == 'edit') {
-            url_edit = GetUrl(id, "{{ route('connection.edit', ':id') }}");
-            GetData(url_edit);
-            url_update = GetUrl(id, "{{ route('connection.update', ':id') }}");
-            $('#connectionForm').append('<input type="hidden" name="_method" value="PUT" id="put">');
-            $("#connectionForm").attr('action', url_update);
-        }
-
-        $('#connectionModal').modal('toggle');
-    }
-
-    function GetData(url) {
-        $.get(url, function(d) {
-            let result = d.data;
-            console.log(result);
-            $("#connection_name").val(result.connection_name);
-            $("#connection_type_id").val(result.connection_type_id);
-            if (result.is_individual == "Individual") {
-                $("#is_individual").val(1);
-                $("#connection_id").val(result.connection_id);
-                $("#team_id").val(result.team_id);
-                hideshow(1);
-                $('#htmlAppend').html("");
-                $("htmlAppendy").hide();
-
-
-            } else {
-                $("#is_individual").val(0);
-                hideshow(0);
-                $("#htmlAppend").html(d.html);
-                $("htmlAppendy").show();
-
-
-            }
-            $("#activity_id").val(result.activity_id);
-            $("#connection_help_id").val(result.connection_help_id);
-            $("#date_of_last_contact").val(result.date_of_last_contact);
-            $("#notes").val(result.notes);
-        })
-    }
-
-
-    function GetUrl(id, url) {
-        return url.replace(':id', id);
-    }
-</script>
 
 <script>
     tippy('.tippy-btn');

@@ -193,6 +193,11 @@
 
     <script src="{{ asset('assets/plugins/tippy/tippy.all.min.js')}}"></script>
 
+    <!--repeater-->
+
+    <script src="{{ asset('assets/plugins/repeaterdastone/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/repeaterdastone/jquery.form-repeater.js') }}"></script>
+
 
 
     <!-- App js -->
