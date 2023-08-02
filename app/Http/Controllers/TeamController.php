@@ -36,10 +36,11 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         //
+     
         try {
 
             $this->validate($request, [
-                'title' => 'required|team:employee,title',
+                'title' => 'required|unique:teams,title',
               
             ]);
 

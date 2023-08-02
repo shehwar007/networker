@@ -243,12 +243,12 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$data->member_data->connection_name ?? ""}}</td>
                             <td>{{$data->team_data->title ?? ""}}</td>
-                            <td>
-
-                                <a href="{{route('delete_member.destroy',['id'=>$data->id])}}" class="btn btn-sm btn-outline-danger waves-effect waves-light" onclick="return confirm('Are you sure, you want Delete?')">Delete Member</a>
-
+                            <td>    
+                               
+                                    <a href="{{route('delete_member.destroy',['id'=>$data->id])}}" class="btn btn-sm btn-outline-danger waves-effect waves-light" onclick="return confirm('Are you sure, you want Delete?')">Delete Member</a>
+                              
                             </td>
-
+                          
 
                         </tr>
                         @endforeach
@@ -273,7 +273,7 @@
                 </div>
                 <div class="col-3 text-right">
                     <button onclick="ModalShow('store');" type="button" class="btn btn-outline-primary btn-sm text-right">
-                        Team
+                        New Team
                     </button>
 
                 </div>
@@ -282,8 +282,53 @@
 
 
 
-        </div>
+        </div><!--end card-header-->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team Name</th>
 
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($team as $data)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$data->title}}</td>
+                            <td class="text-right">
+                                <div class="dropdown d-inline-block">
+                                    <a class="dropdown-toggle arrow-none" id="dLabel11" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                        <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
+                                        <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
+                                        <a class="dropdown-item" href="/team_delete/{{$data->id}}" onclick="return confirm('Are you sure, you want Delete?')">Delete</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- <td class="text-right">
+                                                        <a onclick="ModalShow('edit','{{ $data->id }}');"><i class="las la-pen text-info font-18"></i></a>
+                                                        <form action="{{ route('team.destroy',$data->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a onclick="return confirm('Are you sure?')"  type="submit"><i class="las la-trash-alt text-danger font-18"></i></a>
+
+                                                        </form>
+
+                                                    </td> -->
+                        </tr>
+                        @endforeach
+
+
+                    </tbody>
+                </table><!--end /table-->
+            </div><!--end /tableresponsive-->
+        </div><!--end card-body-->
     </div>
 
 
@@ -308,8 +353,7 @@
 <!------HER IS THE MODAL---------->
 
 <div class="modal fade bd-example-modal-xl" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-
+    <div class="modal-dialog modal-sm" role="document">
         <form id="Form" method="post" enctype="multipart/form-data" autocomplete="off">
             @csrf
             <div class="modal-content">
@@ -332,53 +376,8 @@
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
                 </div><!--end modal-footer-->
-            </div>
-            <div class="modal-content">
-                <div class="row">
-                    <div class="col-12">
-
-                        <div class="table-responsive">
-                            <table class="table table-striped mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Team Name</th>
-
-                                        <th class="text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($team as $data)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$data->title}}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown d-inline-block">
-                                                <a class="dropdown-toggle arrow-none" id="dLabel11" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                                    <i class="las la-ellipsis-v font-20 text-muted"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
-                                                    <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a>
-                                                    <a class="dropdown-item" href="/team_delete/{{$data->id}}" onclick="return confirm('Are you sure, you want Delete?')">Delete</a>
-
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
-
-
-                                </tbody>
-                            </table><!--end /table-->
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--end modal-content-->
+            </div><!--end modal-content-->
         </form>
-
     </div><!--end modal-dialog-->
 </div>
 
@@ -482,8 +481,6 @@
         if (action == 'store') {
             $('#Form')[0].reset();
             $("#Form").attr('action', "{{route('team.store')}}");
-            
-        $('#Modal').modal('toggle');
 
         } else if (action == 'edit') {
             url_edit = GetUrl(id, "{{ route('team.edit', ':id') }}");
@@ -493,6 +490,7 @@
             $("#Form").attr('action', url_update);
         }
 
+        $('#Modal').modal('toggle');
     }
 
     function GetData(url) {
