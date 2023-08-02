@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Connection;
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ class ConnectionController extends Controller
      */
     public function index()
     {
+    
 
         if(session('adminData')['role']==1){
             $connection = Connection::select('*')->latest()->where('status', 0)->get();
@@ -92,6 +94,19 @@ class ConnectionController extends Controller
         return back();
     }
 
+    public function ConnectionMemberStore(Request $request)
+    {
+         
+         DB::table('connection_teams')->insert([
+            'connection_id' => $request->member_update_id,
+             'member_id' => $request->member_id,
+             'team_id' =>  $request->team_id,
+          ]);
+          session()->flash("alert-message", "Great! Connection Added Successfully");
+          session()->flash("alert", "success");
+          return back();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -116,23 +131,30 @@ class ConnectionController extends Controller
         $connection_types = DB::table('connection_types')->select('id', 'connection_type')->get();
         $activities = DB::table('activities')->select('id', 'activity')->get();
         $connection_helps = DB::table('connection_helps')->select('id', 'connection_help')->get();
-
+ 
+        $notIn=Member::distinct()->pluck('member_id');
+       
 
         if(session('adminData')['role']==1){
-            $member = Connection::select('id','connection_name')->latest()->where('is_individual',0)->get();
+              
+            $member = Connection::select('id','connection_name')->latest()->where('is_individual',1)->whereNotIn('id',$notIn)->get();
         }else{
-            $member = Connection::select('id','connection_name')->latest()->where('is_individual',0)->where('user_id',session('adminData')['id'])->get();
+            $member = Connection::select('id','connection_name')->latest()->where('is_individual',1)->whereNotIn('id',$notIn)->where('user_id',session('adminData')['id'])->get();
         }
        
 
         $team = DB::table('teams')->select('id', 'title')->get();
+
        
 
          $selected_dropdown= DB::table('connection_teams')->where('connection_id',$connection->id)->get();
          
+          $member_table=Member::where('connection_id',$connection->id)->get();
+        
+        // //   dd($d->team_data->title);
+        //   dd($d->member_data->connection_name);
 
-
-       return view('edit',compact('connection','connection_types','activities','connection_helps','member','team','selected_dropdown'));
+       return view('edit',compact('member_table','connection','connection_types','activities','connection_helps','member','team','selected_dropdown'));
      
 
 
@@ -156,16 +178,16 @@ class ConnectionController extends Controller
             $data['user_id']= session('adminData')['id'];
             $connection->update($data);
 
-            DB::table('connection_teams')->where('connection_id',$connection->id)->delete();
+            // DB::table('connection_teams')->where('connection_id',$connection->id)->delete();
             
-            foreach($request->connection_teams as $data){
+            // foreach($request->connection_teams as $data){
                 
-                DB::table('connection_teams')->insert([
-                 'connection_id' => $connection->id,
-                  'member_id' => $data['member_id'],
-                  'team_id' => $data['team_id'],
-               ]);
-            }
+            //     DB::table('connection_teams')->insert([
+            //      'connection_id' => $connection->id,
+            //       'member_id' => $data['member_id'],
+            //       'team_id' => $data['team_id'],
+            //    ]);
+            // }
            
             
             session()->flash("alert-message", "Great! Connection Update Successfully");
@@ -187,6 +209,16 @@ class ConnectionController extends Controller
     public function destroy(Connection $connection)
     {
         $connection->delete();
+    }
+
+    public function DeleteMember($id)
+    {
+        $member = Member::findOrFail($id);
+        $member->delete();
+        session()->flash("alert-message", "Great! Member Delete Successfully");
+        session()->flash("alert", "success");
+        return back();
+    
     }
 
     public function ActionConnection(Request $request)

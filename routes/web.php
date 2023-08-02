@@ -20,6 +20,9 @@ Route::post('loginSubmit', [AuthController::class,'validateCredentials']);
 Route::group(['middleware' => ['loginCheck']], function () {
 
 Route::resource('connection', ConnectionController::class);
+Route::post('connection_member', [ConnectionController::class, 'ConnectionMemberStore'])->name('connection_members');
+Route::get('delete_connection_member/{id}', [ConnectionController::class, 'DeleteMember'])->name('delete_member.destroy');
+
 Route::resource('team', TeamController::class);
 Route::get('team_delete/{team}', [TeamController::class, 'destroy']);
 
