@@ -38,11 +38,16 @@ class TeamController extends Controller
         //
         try {
 
+            $this->validate($request, [
+                'title' => 'required|team:employee,title',
+              
+            ]);
+
             Team::create(['title' => $request->title]);
             session()->flash("alert-message", "Great! Team Added Successfully");
             session()->flash("alert", "success");
         } catch (\Exception $ex) {
-            session()->flash("alert-message", "Oh snap! Some thing went Wrong");
+            session()->flash("alert-message", "Oh snap! Some thing went Wrong or Team Already Exist");
             session()->flash("alert", "danger");
         }
         return back();
