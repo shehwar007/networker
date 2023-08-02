@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Networker || @yield('title')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}">
+
+    <!-- DataTables -->
+    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <!-- App css -->
+    <link href="{{ asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/metisMenu.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
+
+    @stack('mycss')
+
+</head>
+
+<body>
+    <!-- Left Sidenav -->
+    <div class="left-sidenav">
+        <!-- LOGO -->
+        <div class="brand">
+            <a href="index.html" class="logo">
+                <span>
+                    <img src="{{asset('assets/images/logo1.jpg')}}" alt="logo-small" style="width: 204px;">
+
+                    <!-- <img src="assets/images/logo-sm.png" alt="logo-small" class="logo-sm"> -->
+                </span>
+                <span>
+                    <!-- <img src="assets/images/logo.png" alt="logo-large" class="logo-lg logo-light">
+                        <img src="assets/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark"> -->
+                </span>
+            </a>
+        </div>
+        <!--end logo-->
+        <div class="menu-content h-100" data-simplebar>
+            <ul class="metismenu left-sidenav-menu">
+                <!-- <li class="menu-label mt-0">Main</li> -->
+                {{--
+                <li>
+                    <a href="{{route('dashboard.index')}}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
+
+                </li>
+                --}}
+
+                <hr class="hr-dashed hr-menu">
+
+                <li>
+                    <a href="{{route('connection.index')}}"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Active Connections</span><span class="menu-arrow"></span></a>
+
+                </li>
+
+                <hr class="hr-dashed hr-menu">
+
+                <li>
+                    <a href="{{route('parked_connection.index')}}"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Parked Connections</span><span class="menu-arrow"></span></a>
+
+                </li>
+
+                <hr class="hr-dashed hr-menu">
+                @if(session('adminData')['role']==1)
+                <li>
+                    <a href="{{route('user.index')}}"><i data-feather="lock" class="align-self-center menu-icon"></i><span>Users</span><span class="menu-arrow"></span></a>
+
+                </li>
+                <hr class="hr-dashed hr-menu">
+                @endif
+
+                <li>
+                    <a href="{{route('logout')}}"><i data-feather="power" class="align-self-center menu-icon"></i><span>Logout</span><span class="menu-arrow"></span></a>
+
+                </li>
+
+
+
+
+
+
+
+            </ul>
+
+
+        </div>
+    </div>
+    <!-- end left-sidenav-->
+
+
+    <div class="page-wrapper">
+        <!-- Top Bar Start -->
+        <div class="topbar">
+            <!-- Navbar -->
+            <nav class="navbar-custom">
+                <ul class="list-unstyled topbar-nav float-right mb-0">
+
+
+
+
+
+                    <li class="dropdown">
+
+
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="{{asset('assets/images/logo.jpg')}}" alt="logo-small" style="width: 204px;">
+
+                            <span class="ml-1 nav-user-name hidden-sm">{{session('adminData')['name']}}</span>
+                            <img src="{{asset('assets/images/users/user-5.jpg')}}" alt="profile-user" class="rounded-circle thumb-xs" />
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+
+                            <a class="dropdown-item" href="{{route('logout')}}"><i data-feather="power" class="align-self-center icon-xs icon-dual mr-1"></i> Logout</a>
+                        </div>
+                    </li>
+                </ul><!--end topbar-nav-->
+
+                <ul class="list-unstyled topbar-nav mb-0">
+                    <li>
+                        <button class="nav-link button-menu-mobile">
+                            <i data-feather="menu" class="align-self-center topbar-icon"></i>
+                        </button>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- end navbar-->
+        </div>
+        <!-- Top Bar End -->
+
+        <!-- Page Content-->
+        <div class="page-content">
+            <div class="container-fluid">
+
+                @yield('page_content')
+                <!-- Page-Title -->
+                <!--end row-->
+                <!-- end page title end breadcrumb -->
+
+
+            </div><!-- container -->
+
+            <footer class="footer text-center text-sm-left">
+                &copy; &copy {{ date('Y') }} Networker <span class="d-none d-sm-inline-block float-right">Developed <i class="mdi mdi-heart text-danger"></i> by Shehwar Asif</span>
+            </footer><!--end footer-->
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end page-wrapper -->
+
+
+
+
+    <!-- jQuery  -->
+    <script src="{{ asset('assets/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('assets/js/metismenu.min.js')}}"></script>
+    <script src="{{ asset('assets/js/waves.js')}}"></script>
+    <script src="{{ asset('assets/js/feather.min.js')}}"></script>
+    <script src="{{ asset('assets/js/simplebar.min.js')}}"></script>
+    <script src="{{ asset('assets/js/moment.js')}}"></script>
+    <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <!-- Buttons examples -->
+    <script src="{{ asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/jszip.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/vfs_fonts.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/buttons.print.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+    <!-- Responsive examples -->
+    <script src="{{ asset('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/pages/jquery.datatable.init.js')}}"></script>
+
+
+    <script src="{{ asset('assets/plugins/tippy/tippy.all.min.js')}}"></script>
+
+    <!--repeater-->
+
+    <script src="{{ asset('assets/plugins/repeaterdastone/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/repeaterdastone/jquery.form-repeater.js') }}"></script>
+
+
+
+    <!-- App js -->
+    <script src="{{ asset('assets/js/app.js')}}"></script>
+
+    @stack('myscript')
+
+</body>
+
+</html>

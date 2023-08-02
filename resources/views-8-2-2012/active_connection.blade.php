@@ -42,7 +42,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Parked Connection</h4>
+                    <h4 class="page-title">Active Connection</h4>
 
                 </div>
                 <div class="col-auto align-self-center">
@@ -93,13 +93,14 @@
 
                                      <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
 
+                                        <!-- <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a> -->
 
                                         <form action="{{ route('connection.action') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$data->id}}">
-                                            <button type="submit" class="dropdown-item" name="unpark" value="park" onclick="return confirm('Are you sure, you want parked?')">Un Park</button>
+                                            <button type="submit" class="dropdown-item" name="park" value="park" onclick="return confirm('Are you sure, you want parked?')">Park</button>
+                                            <button type="submit" class="dropdown-item" name="duplicate" value="duplicate" onclick="return confirm('Are you sure, you want Duplicate?')">Duplicate</button>
                                             <button type="submit" class="dropdown-item" name="delete" value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
-
                                         </form>
 
                                     </div>
