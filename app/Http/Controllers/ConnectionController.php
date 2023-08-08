@@ -229,12 +229,12 @@ class ConnectionController extends Controller
             if ($request->park) {
                 $connection->status = 1;
                 $connection->save();
-                session()->flash("alert-message", "Great! Connection Park Successfully");
+                session()->flash("alert-message", "Great! Connection Parked Successfully");
             }
             if ($request->unpark) {
                 $connection->status = 0;
                 $connection->save();
-                session()->flash("alert-message", "Great! Connection UnPark Successfully");
+                session()->flash("alert-message", "Great! Connection UnParked Successfully");
             }
             if ($request->duplicate) {
 

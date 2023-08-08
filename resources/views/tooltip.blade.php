@@ -16,10 +16,12 @@ The connection may be an individual or a group of individuals.
 <div id="tool_type" data-template>
     <div style="padding:20px;text-align: left;">
         <pre>
- A connection type is as follows:
+ A connection type is as follows:</br>
 Type A1. Higher ROTI score/Higher relationship score and therefore requires less attention
 Type A2. Higher ROTI score/Lower relationship score and therefore requires more attention. 
+
 Definitions:
+
 ROTI = return on time invested. That is, the short- or long-term value the connection could
 provide verse the time and effort to develop the connection. Value returned could be business
 or introductions to business. Also, consider the likelihood of the connection delivering that return.
@@ -31,7 +33,9 @@ That is, the person with whom you have the strongest relationship because you ha
 and they find you highly credible. That person is rated 10/10. Give your connection a relationship score 
 out of 10 compared to your benchmark connection. A higher relationship score for a connection is 7-10/10.
 Attention required = The time, effort and frequency of contact needed to maintain and build the relationship.
+
 Note:
+
 - If you have just met a connection then clasiify them as a A2 even if the initail contact was very positive.
 You need to meet with them 2 or 3 more times before classifying them as an A1 assuming the chemistry is still
 strong and they still find you credible.
