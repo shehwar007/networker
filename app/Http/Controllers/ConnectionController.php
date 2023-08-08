@@ -20,11 +20,11 @@ class ConnectionController extends Controller
     {
     
 
-        if(session('adminData')['role']==1){
-            $connection = Connection::select('*')->latest()->where('status', 0)->get();
-        }else{
+        // if(session('adminData')['role']==1){
+        //     $connection = Connection::select('*')->latest()->where('status', 0)->get();
+        // }else{
             $connection = Connection::select('*')->latest()->where('user_id',session('adminData')['id'])->where('status', 0)->get();
-        }        
+        // }        
 
         return view('active_connection', compact('connection'));
     }
@@ -142,8 +142,16 @@ class ConnectionController extends Controller
             $member = Connection::select('id','connection_name')->latest()->where('is_individual',1)->whereNotIn('id',$notIn)->where('user_id',session('adminData')['id'])->get();
         }
        
+        //////////TEAM START
 
-        $team = DB::table('teams')->select('id', 'title')->get();
+        // $team = DB::table('teams')->select('id', 'title')->get();
+         // if(session('adminData')['role']==1){
+            // $team = DB::table('teams')->select('id', 'title')->get();
+        // }else{
+            $team = DB::table('teams')->select('id', 'title')->where('user_id',session('adminData')['id'])->get();
+        // } 
+
+        ///////////TEAM END
 
        
 

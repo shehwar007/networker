@@ -44,7 +44,7 @@ class TeamController extends Controller
               
             ]);
 
-            Team::create(['title' => $request->title]);
+            Team::create(['title'=>$request->title,'user_id'=>session('adminData')['id']]);
             session()->flash("alert-message", "Great! Team Added Successfully");
             session()->flash("alert", "success");
         } catch (\Exception $ex) {
@@ -88,6 +88,8 @@ class TeamController extends Controller
     {
         try {
             $data = $request->only('title');
+            $data['user_id']=session('adminData')['id'];
+            
             $team->update($data);
             session()->flash("alert-message", "Great! Team Update Successfully");
             session()->flash("alert", "success");
