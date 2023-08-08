@@ -118,7 +118,7 @@
 
                                 @endphp
 
-                                @if($diffInMonths>6)
+                                @if($diffInMonths>3)
                                 <button type="button" class="btn  btn-icon-circle-sm" style="background-color: red;"></button>
                                 {{$diffInMonths}}
                                 @else

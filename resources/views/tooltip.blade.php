@@ -80,6 +80,7 @@ and have more impact on chemistry and credibility.
 
 -The activities towards the bottom half tend to feature remote contact, require less time and effort,
 and have less impact on chemistry but can build credibility.
+
 Seminars and webinars tend to be an exception. They take more work and may be stressful, but you have
  more direct contact. This activity also means more opportunity to build chemistry and credibility with
  a higher number of connections.
@@ -109,6 +110,7 @@ activity includes help for the connection. Ways to help include the following:
 
 Connect them to somebody – Can you connect them to a potential client or provider who might resolve a need?
 Maybe you can connect them to others who work in their field or share the same interests?
+
 Give them insights – Can you give them insights that are relevant to their business, role or
 personal interests? 
 
