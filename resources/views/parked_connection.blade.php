@@ -188,6 +188,22 @@
         table.buttons().container()
             .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 
+        $('#mytool_name').on('click', function(event) {
+            event.stopPropagation();
+        });
+        $('#mytool_type').on('click', function(event) {
+            event.stopPropagation();
+        });
+        $('#mytool_date').on('click', function(event) {
+            event.stopPropagation();
+        });
+        $('#mytool_activity').on('click', function(event) {
+            event.stopPropagation();
+        });
+        $('#mytool_help').on('click', function(event) {
+            event.stopPropagation();
+        });
+
     });
 </script>
 
@@ -197,27 +213,32 @@
     tippy('#mytool_name', {
         html: document.querySelector('#tool_name'), // DIRECT ELEMENT option
         arrow: true,
-        animation: 'fade'
+        animation: 'fade',
+        trigger: 'click',
     });
     tippy('#mytool_type', {
         html: document.querySelector('#tool_type'), // DIRECT ELEMENT option
         arrow: true,
-        animation: 'fade'
+        animation: 'fade',
+        trigger: 'click',
     });
     tippy('#mytool_date', {
         html: document.querySelector('#tool_date'), // DIRECT ELEMENT option
         arrow: true,
-        animation: 'fade'
+        animation: 'fade',
+        trigger: 'click',
     });
     tippy('#mytool_activity', {
         html: document.querySelector('#tool_activity'), // DIRECT ELEMENT option
         arrow: true,
-        animation: 'fade'
+        animation: 'fade',
+        trigger: 'click',
     });
     tippy('#mytool_help', {
         html: document.querySelector('#tool_help'), // DIRECT ELEMENT option
         arrow: true,
-        animation: 'fade'
+        animation: 'fade',
+        trigger: 'click',
     });
 </script>
 @endpush
