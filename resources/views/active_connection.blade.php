@@ -20,7 +20,37 @@
 
 @section('page_content')
 
+<div class="row d-none">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Popovers Example</h4>
+                <p class="text-muted mb-0">Add small overlay content, like those found in iOS, to any element for housing secondary information.</p>
+            </div><!--end card-header-->
+            <div class="card-body">
+                <a type="button" class="" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                    ℹ️
+                </a>
 
+                <button type="button" class="btn btn-primary waves-effect mo-mb-2" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                    Popover on right
+                </button>
+
+                <button type="button" class="btn btn-primary waves-effect mo-mb-2" data-container="body" data-toggle="popover" title="Popover Title" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                    Popover on bottom
+                </button>
+
+                <button type="button" class="btn btn-primary waves-effect mo-mb-2" data-container="body" data-toggle="popover" data-placement="left" title="Popover Title" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                    Popover on left
+                </button>
+
+                <button type="button" tabindex="0" class="btn btn-secondary waves-effect" data-toggle="popover" data-trigger="focus" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="Dismissible popover">
+                    Dismissible popover
+                </button>
+            </div><!--end card-body-->
+        </div><!--end card-->
+    </div> <!-- end col -->
+</div> <!-- end row -->
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -49,7 +79,7 @@
                     <a href="{{route('connection.create')}}" type="button" class="btn btn-outline-primary btn-sm">
                         New Connection
                     </a>
-                   
+
 
 
                 </div><!--end col-->
@@ -60,7 +90,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-           
+
 
             <div class="card-body">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -68,13 +98,13 @@
                         <tr>
                             <th></th>
 
-                            <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
+                            <th >Name &nbsp;&nbsp;&nbsp;<i id="mytool_name" data-tippy-theme="light rounded" class="dripicons-information"></i></th>
 
-                            <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
+                            <th>Type &nbsp;&nbsp;&nbsp;<i id="mytool_type" data-tippy-theme="light rounded" class="dripicons-information"></i></th>
 
-                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br>Last Contact</th>
-                            <th id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
-                            <th id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
+                            <th >Month Since <br>Last Contact  &nbsp;&nbsp;&nbsp;<i id="mytool_date" data-tippy-theme="light rounded" class="dripicons-information"></i></th>
+                            <th >Next Activity  &nbsp;&nbsp;&nbsp;<i id="mytool_activity" data-tippy-theme="light rounded" class="dripicons-information"></i></th>
+                            <th>How to Help  <br> the connection &nbsp;&nbsp;&nbsp;<i id="mytool_help" data-tippy-theme="light rounded" class="dripicons-information"></i></th>
                             <th>Notes</th>
 
                         </tr>
@@ -91,7 +121,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11">
 
-                                     <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
+                                        <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
 
                                         <!-- <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a> -->
 

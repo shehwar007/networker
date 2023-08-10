@@ -25,6 +25,22 @@
     <link href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
 
+    <style>
+        
+          /* Apply responsive styles using media queries */
+  @media screen and (max-width: 768px) {
+    #tool_name {
+      padding: 10px;
+      overflow-x: auto;
+    }
+    
+    #tool_name pre {
+      font-size: 14px;
+      white-space: pre-wrap; /* Preserve line breaks */
+    }
+  }
+    </style>
+
     @stack('mycss')
 
 </head>
@@ -201,6 +217,7 @@
 
 
     <!-- App js -->
+    <script src="{{ asset('assets/js/jquery.core.js')}}"></script>
     <script src="{{ asset('assets/js/app.js')}}"></script>
 
     @stack('myscript')
