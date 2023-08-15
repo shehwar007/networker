@@ -22,13 +22,13 @@
     provide verse the time and effort to develop the connection. Value returned could be business</br>
     or introductions to business. Also, consider the likelihood of the connection delivering that return.</br>
     </br>
-    ROTI score = Determined by benchmarking the connection against your most valuable client who represents</br>
+    ROTI score = Determined by benchmarking the connection against your most valuable client who represents
     the best return on time invested. That client is rated 10/10. Give your connection a ROTI score out of</br>
     10 compared to your benchmark client. A higher ROTI score for a connection is 7-10/10</br>
     </br>
     Relationship score = Determined by benchmarking the connection against your biggest fan.</br>
-    That is, the person with whom you have the strongest relationship because you have a lot of chemistry,</br>
-    and they find you highly credible. That person is rated 10/10. Give your connection a relationship score</br>
+    That is, the person with whom you have the strongest relationship because you have a lot of chemistry,
+    and they find you highly credible. That person is rated 10/10. Give your connection a relationship score
     out of 10 compared to your benchmark connection. A higher relationship score for a connection is 7-10/10.</br>
     Attention required = The time, effort and frequency of contact needed to maintain and build the relationship.</br>
     </br>
