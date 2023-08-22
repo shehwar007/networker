@@ -13,7 +13,6 @@
         border-radius: 100%;
         line-height: 1;
     }
-    
 </style>
 
 
@@ -21,37 +20,7 @@
 
 @section('page_content')
 
-<div class="row d-none">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Popovers Example</h4>
-                <p class="text-muted mb-0">Add small overlay content, like those found in iOS, to any element for housing secondary information.</p>
-            </div><!--end card-header-->
-            <div class="card-body">
-                <a type="button" class="" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                    ℹ️
-                </a>
 
-                <button type="button" class="btn btn-primary waves-effect mo-mb-2" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                    Popover on right
-                </button>
-
-                <button type="button" class="btn btn-primary waves-effect mo-mb-2" data-container="body" data-toggle="popover" title="Popover Title" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                    Popover on bottom
-                </button>
-
-                <button type="button" class="btn btn-primary waves-effect mo-mb-2" data-container="body" data-toggle="popover" data-placement="left" title="Popover Title" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                    Popover on left
-                </button>
-
-                <button type="button" tabindex="0" class="btn btn-secondary waves-effect" data-toggle="popover" data-trigger="focus" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="Dismissible popover">
-                    Dismissible popover
-                </button>
-            </div><!--end card-body-->
-        </div><!--end card-->
-    </div> <!-- end col -->
-</div> <!-- end row -->
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -73,7 +42,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Active Connection</h4>
+                    <h4 class="page-title">Parked Connection</h4>
 
                 </div>
                 <div class="col-auto align-self-center">
@@ -97,6 +66,16 @@
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
+                            <!-- <th></th>
+
+                            <th id="mytool_name" data-tippy-theme="light rounded">Name</th>
+
+                            <th id="mytool_type" data-tippy-theme="light rounded">Type</th>
+
+                            <th id="mytool_date" data-tippy-theme="light rounded">Month Since <br>Last Contact</th>
+                            <th id="mytool_activity" data-tippy-theme="light rounded">Next Activity</th>
+                            <th id="mytool_help" data-tippy-theme="light rounded">How to Help <br> the connection</th>
+                            <th>Notes</th> -->
                             <th></th>
 
                             <th>Name &nbsp;&nbsp;&nbsp;<i id="mytool_name" data-tippy-theme="light rounded" class="dripicons-information"></i></th>
@@ -124,14 +103,13 @@
 
                                         <a class="dropdown-item" href="{{route('connection.edit',$data->id)}}">Edit</a>
 
-                                        <!-- <a class="dropdown-item" onclick="ModalShow('edit','{{ $data->id }}');">Edit</a> -->
 
                                         <form action="{{ route('connection.action') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$data->id}}">
-                                            <button type="submit" class="dropdown-item" name="park" value="park" onclick="return confirm('Are you sure, you want parked?')">Park</button>
-                                            <button type="submit" class="dropdown-item" name="duplicate" value="duplicate" onclick="return confirm('Are you sure, you want Duplicate?')">Duplicate</button>
+                                            <button type="submit" class="dropdown-item" name="unpark" value="park" onclick="return confirm('Are you sure, you want parked?')">UnPark</button>
                                             <button type="submit" class="dropdown-item" name="delete" value="Delete" onclick="return confirm('Are you sure, you want Delete?')">Delete</button>
+
                                         </form>
 
                                     </div>
@@ -209,6 +187,7 @@
 
         table.buttons().container()
             .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+
         $('#mytool_name').on('click', function(event) {
             event.stopPropagation();
         });
@@ -225,7 +204,6 @@
             event.stopPropagation();
         });
 
-
     });
 </script>
 
@@ -237,8 +215,6 @@
         arrow: true,
         animation: 'fade',
         trigger: 'click',
-        allowHTML: true,
-        maxWidth: 10, 
     });
     tippy('#mytool_type', {
         html: document.querySelector('#tool_type'), // DIRECT ELEMENT option

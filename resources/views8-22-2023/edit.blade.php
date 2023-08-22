@@ -102,107 +102,209 @@
                     <br></hr>
                     </hr>
 
-                    <div class="row display  @if($connection->getRawOriginal('is_individual') == '1') d-none @endif">
-
-                        <div class="col-md-6">
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <h4 class="card-title">Member</h4>
-                                        </div>
-                                        <div class="col-3 text-right">
-                                            <button onclick="ModalShow2('store');" type="button" class="btn btn-outline-primary btn-sm text-right">
-                                                New
-                                            </button>
-
-                                        </div>
-                                    </div>
-
-
-
-
-                                </div><!--end card-header-->
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Member</th>
-                                                    <th>Team</th>
-                                                    <th>Action</th>
-
-                                                    <!-- <th class="text-right">Action</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($member_table as $data)
-                                                <tr>
-                                                    <td>{{$loop->iteration}}</td>
-                                                    <td>{{$data->member_data->connection_name ?? ""}}</td>
-                                                    <td>{{$data->team_data->title ?? ""}}</td>
-                                                    <td>
-
-                                                        <a href="{{route('delete_member.destroy',['id'=>$data->id])}}" class="btn btn-sm btn-outline-danger waves-effect waves-light" onclick="return confirm('Are you sure, you want Delete?')">Delete Member</a>
-
-                                                    </td>
-
-
-                                                </tr>
-                                                @endforeach
-
-
-                                            </tbody>
-                                        </table><!--end /table-->
-                                    </div><!--end /tableresponsive-->
-                                </div><!--end card-body-->
-                            </div>
-
-
-
-                        </div>
-                        <div class="col-md-6">
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <h4 class="card-title">Create/Edit Team</h4>
-                                        </div>
-                                        <div class="col-3 text-right">
-                                            <button onclick="ModalShow('store');" type="button" class="btn btn-outline-primary btn-sm text-right">
-                                                Team
-                                            </button>
-
-                                        </div>
-                                    </div>
-
-
-
-
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-
-
-                    </div>
                     <div class="row">
-                        <div class="col-sm-12 text-right">
+                        {{--
+                        <div class="col-md-6">
 
-                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                        </div>
+                            <div class="repeater-custom-show-hide">
+                                <div data-repeater-list="connection_teams">
+                                    @if(count($selected_dropdown)===0)
+                                    <div data-repeater-item="">
+                                        <div class="form-group row  d-flex align-items-end">
+                                            <div class="col-sm-5">
+                                                <label class="control-label">Member</label>
+                                                <select class="form-control" id="member_id" name="member_id">
+                                                    <option value="">----Select----</option>
+                                                    @foreach($member as $data)
+                                                    <option value="{{$data->id}}">{{$data->connection_name}}</option>
+                        @endforeach
+                        </select>
                     </div>
-                </form>
-            </div><!--end card-body-->
-        </div><!--end card-->
+                    <div class="col-sm-5">
+                        <label class="control-label">Team</label>
+                        <select class="form-control" id="team_id" name="team_id">
+                            <option value="">----Select----</option>
+                            @foreach($team as $data)
+                            <option value="{{$data->id}}">{{$data->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
+
+
+                    <div class="col-sm-1">
+                        <button data-repeater-delete class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+
+                        <!-- <span data-repeater-delete="" class="btn btn-danger btn-sm">
+                                                      <i class="fa fa-minus"></i>  -->
+
+                        </span>
+                    </div>
+                    <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        @else
+        @foreach($selected_dropdown as $dropdown)
+        <div data-repeater-item="">
+            <div class="form-group row  d-flex align-items-end">
+                <div class="col-sm-5">
+                    <label class="control-label">Member</label>
+                    <select class="form-control" id="member_id" name="member_id">
+                        <option value="">----Select----</option>
+                        @foreach($member as $data)
+
+                        <option {{ $dropdown->member_id==$data->id ? 'selected' : ''}} value="{{$data->id}}">{{$data->connection_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <label class="control-label">Team</label>
+                    <select class="form-control" id="team_id" name="team_id">
+                        <option value="">----Select----</option>
+                        @foreach($team as $data)
+                        <option {{ $dropdown->team_id==$data->id ? 'selected' : ''}} value="{{$data->id}}">{{$data->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+
+
+                <div class="col-sm-1">
+                    <button data-repeater-delete class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+
+                    <!-- <span data-repeater-delete="" class="btn btn-danger btn-sm">
+                                                      <i class="fa fa-minus"></i>  -->
+
+                    </span>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        @endforeach
+
+        @endif
+        <!--end /div-->
+
 
     </div>
+    <!--end repet-list-->
+
+    <div class="form-group row mb-0">
+        <div class="col-sm-12">
+            <button data-repeater-create="" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+</div>
+<!--end repeter-->
+
+</div>
+--}}
+<div class="col-md-6 @if($connection->getRawOriginal('is_individual') == '1') d-none @endif ">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-9">
+                    <h4 class="card-title">Member</h4>
+                </div>
+                <div class="col-3 text-right">
+                    <button onclick="ModalShow2('store');" type="button" class="btn btn-outline-primary btn-sm text-right">
+                        New
+                    </button>
+
+                </div>
+            </div>
+
+
+
+
+        </div><!--end card-header-->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Member</th>
+                            <th>Team</th>
+                            <th>Action</th>
+
+                            <!-- <th class="text-right">Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($member_table as $data)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$data->member_data->connection_name ?? ""}}</td>
+                            <td>{{$data->team_data->title ?? ""}}</td>
+                            <td>
+
+                                <a href="{{route('delete_member.destroy',['id'=>$data->id])}}" class="btn btn-sm btn-outline-danger waves-effect waves-light" onclick="return confirm('Are you sure, you want Delete?')">Delete Member</a>
+
+                            </td>
+
+
+                        </tr>
+                        @endforeach
+
+
+                    </tbody>
+                </table><!--end /table-->
+            </div><!--end /tableresponsive-->
+        </div><!--end card-body-->
+    </div>
+
+
+
+</div>
+<div class="col-md-6">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-9">
+                    <h4 class="card-title">Create/Edit Team</h4>
+                </div>
+                <div class="col-3 text-right">
+                    <button onclick="ModalShow('store');" type="button" class="btn btn-outline-primary btn-sm text-right">
+                        Team
+                    </button>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+</div>
+<div class="row">
+    <div class="col-sm-12 text-right">
+
+        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+    </div>
+</div>
+</form>
+</div><!--end card-body-->
+</div><!--end card-->
+
+</div>
 </div>
 
 <!------HER IS THE MODAL---------->
@@ -235,7 +337,7 @@
             </div>
             <div class="modal-content">
                 <div class="row">
-
+                   
 
                     <div class="col-12">
                         <div class="card">
@@ -375,21 +477,6 @@
     });
 </script>
 <script>
-    $("#is_individual").change(function() {
-        hideshow(this.value);
-
-    });
-
-    function hideshow(data) {
-        if (data == 1) {
-            // $(".display").hide();
-            $('.display').addClass('d-none');
-        } else {
-            // $(".display").show();
-            $('.display').removeClass('d-none');
-        }
-    }
-
     function ModalShow2(action, id) {
         if (action == 'store') {
             $('#Form2')[0].reset();
