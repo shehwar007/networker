@@ -158,7 +158,7 @@
             </div><!-- container -->
 
             <footer class="footer text-center text-sm-left">
-                &copy; &copy {{ date('Y') }} Networker <span class="d-none d-sm-inline-block float-right">Developed <i class="mdi mdi-heart text-danger"></i> by Shehwar Asif</span>
+                &copy;  {{ date('Y') }} Networker <span class="d-none d-sm-inline-block float-right"> </span>
             </footer><!--end footer-->
         </div>
         <!-- end page content -->

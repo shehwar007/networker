@@ -1,4 +1,4 @@
-<div id="tool_name" data-template style="padding:1px ;text-align: left;">
+<div id="tool_name" data-template style="padding:1px ;text-align: left;" >
  
         
 <pre>A connection is:
