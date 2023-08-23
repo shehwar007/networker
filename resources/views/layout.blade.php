@@ -36,7 +36,7 @@
     <div class="left-sidenav">
         <!-- LOGO -->
         <div class="brand">
-            <a href="javascript:void(0);" class="logo">
+            <div class="logo">
                 <span>
                     <img src="{{asset('assets/images/logo1.jpg')}}" alt="logo-small" style="width: 204px;">
 
@@ -46,7 +46,7 @@
                     <!-- <img src="assets/images/logo.png" alt="logo-large" class="logo-lg logo-light">
                         <img src="assets/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark"> -->
                 </span>
-            </a>
+            </div>
         </div>
         <!--end logo-->
         <div class="menu-content h-100" data-simplebar>
@@ -115,7 +115,7 @@
                     <li class="dropdown">
 
 
-                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user"  href="http://influence.co.nz/" role="button">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" href="http://influence.co.nz/" target="_blank" role="button">
                             <img src="{{asset('assets/images/logo.jpg')}}" alt="logo-small" style="width: 204px;">
                         </a>
 

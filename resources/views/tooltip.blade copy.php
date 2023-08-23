@@ -4,7 +4,7 @@
 <div id="tool_name" data-template>
     <div style="padding:20px ;text-align: left;" >
         <pre>
- A connection is:</br>
+ A connection is:
 An existing client for whom you are not currently providing a service; or
 Someone who has or might refer you to a potential client.
 
