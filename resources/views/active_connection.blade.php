@@ -192,7 +192,7 @@
                             </td>
                             <!-- <td>{{$data->date_of_last_contact }}</td> -->
                             <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
-                            <td>{{$data->conhelp->connection_help }}</td>
+                            <td>{{$data->conhelp->connection_help ?? "NOT FOUND" }}</td>
                             <td> {{$data->notes }}</td>
 
                         </tr>
