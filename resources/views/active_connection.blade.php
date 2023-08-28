@@ -13,6 +13,22 @@
         border-radius: 100%;
         line-height: 1;
     }
+
+    .dot_red {
+        height: 15px;
+        width: 15px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .dot_green {
+        height: 15px;
+        width: 15px;
+        background-color: #03d87f;
+        border-radius: 50%;
+        display: inline-block;
+    }
 </style>
 
 
@@ -150,16 +166,33 @@
                                 @endphp
 
                                 @if($diffInMonths>3)
-                                <button type="button" class="btn  btn-icon-circle-sm" style="background-color: red;"></button>
-                                {{$diffInMonths}}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="dot_red"></div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="mb-1"> {{$diffInMonths}}</label>
+                                    </div>
+                                </div>
+
+                                <!-- <button type="button" class="btn  btn-icon-circle-sm" style="background-color: red;"></button> -->
+
                                 @else
-                                <button type="button" class="btn  btn-icon-circle-sm" style="background-color: #03d87f;"></button>
-                                {{$diffInMonths}}
+                                <div class="row">
+                                    <div class="col-5"></div>
+                                    <div class="col-1">
+                                        <div class="dot_green"></div>
+                                    </div>
+                                    <div class="col-1">
+                                        <label class="mb-1"> {{$diffInMonths}}</label>
+                                    </div>
+                                    <div class="col-5"></div>
+                                </div>
                                 @endif
                             </td>
                             <!-- <td>{{$data->date_of_last_contact }}</td> -->
                             <td>{{$data->conactivity->activity ?? "NOT FOUND"}}</td>
-                            <td>{{$data->conhelp->connection_help }}</td>
+                            <td>{{$data->conhelp->connection_help ?? "NOT FOUND" }}</td>
                             <td> {{$data->notes }}</td>
 
                         </tr>
@@ -236,6 +269,8 @@
         arrow: true,
         animation: 'fade',
         trigger: 'click',
+        allowHTML: true,
+        maxWidth: 10,
     });
     tippy('#mytool_type', {
         html: document.querySelector('#tool_type'), // DIRECT ELEMENT option

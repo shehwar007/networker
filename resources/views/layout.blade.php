@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Networker || @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Networker Influence" name="description" />
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -25,7 +25,7 @@
     <link href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
 
-    
+
 
     @stack('mycss')
 
@@ -36,7 +36,7 @@
     <div class="left-sidenav">
         <!-- LOGO -->
         <div class="brand">
-            <a href="index.html" class="logo">
+            <div class="logo">
                 <span>
                     <img src="{{asset('assets/images/logo1.jpg')}}" alt="logo-small" style="width: 204px;">
 
@@ -46,7 +46,7 @@
                     <!-- <img src="assets/images/logo.png" alt="logo-large" class="logo-lg logo-light">
                         <img src="assets/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark"> -->
                 </span>
-            </a>
+            </div>
         </div>
         <!--end logo-->
         <div class="menu-content h-100" data-simplebar>
@@ -115,8 +115,11 @@
                     <li class="dropdown">
 
 
-                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" href="http://influence.co.nz/" target="_blank" role="button">
                             <img src="{{asset('assets/images/logo.jpg')}}" alt="logo-small" style="width: 204px;">
+                        </a>
+
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 
                             <span class="ml-1 nav-user-name hidden-sm">{{session('adminData')['name']}}</span>
                             <img src="{{asset('assets/images/users/user-5.jpg')}}" alt="profile-user" class="rounded-circle thumb-xs" />
@@ -155,7 +158,7 @@
             </div><!-- container -->
 
             <footer class="footer text-center text-sm-left">
-                &copy; &copy {{ date('Y') }} Networker <span class="d-none d-sm-inline-block float-right">Developed <i class="mdi mdi-heart text-danger"></i> by Shehwar Asif</span>
+                &copy;  {{ date('Y') }} Networker <span class="d-none d-sm-inline-block float-right"> </span>
             </footer><!--end footer-->
         </div>
         <!-- end page content -->
