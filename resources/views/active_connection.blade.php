@@ -166,13 +166,23 @@
                                 @endphp
 
                                 @if($diffInMonths>3)
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-6">
                                         <div class="dot_red"></div>
                                     </div>
                                     <div class="col-6">
                                         <label class="mb-1"> {{$diffInMonths}}</label>
                                     </div>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-5"></div>
+                                    <div class="col-1">
+                                        <div class="dot_red"></div>
+                                    </div>
+                                    <div class="col-1">
+                                        <label class="mb-1"> {{$diffInMonths}}</label>
+                                    </div>
+                                    <div class="col-5"></div>
                                 </div>
 
                                 <!-- <button type="button" class="btn  btn-icon-circle-sm" style="background-color: red;"></button> -->
